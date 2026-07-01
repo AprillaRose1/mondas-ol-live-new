@@ -22,6 +22,7 @@ export const API_ROUTES = {
   checkout:         API_BASE + '/api/checkout',
   auditLogs:        API_BASE + '/api/audit-logs',
   discounts:       API_BASE + '/api/discounts',
+  media:           API_BASE + '/api/media',
   mediaUpload:     API_BASE + '/api/media/upload',
   mediaUploadBatch:API_BASE + '/api/media/upload/batch',
   mediaDelete: (key: string) => API_BASE + '/api/media/' + encodeURIComponent(key),

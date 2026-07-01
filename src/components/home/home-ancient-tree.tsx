@@ -18,7 +18,7 @@ export function HomeAncientTree() {
       <p className="eyebrow">{t('home.ancient_tree.eyebrow')}</p>
       <AccentTitle i18nKey="home.ancient_tree.title" as="h2" className="mb-5" />
       <p className="body-lg mb-4 text-text-secondary">{t('home.ancient_tree.body1')}</p>
-      <p className="body-lg mb-6">{t('home.ancient_tree.body2')}</p>
+      <p className="body-lg mb-4 text-text-secondary">{t('home.ancient_tree.body2')}</p>
       <Link href="/story" className="link-caps">
         {t('home.ancient_tree.cta')} <ChevronRight size={16} />
       </Link>

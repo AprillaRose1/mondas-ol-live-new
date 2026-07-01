@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   BarChart3, LayoutDashboard, MessageSquare, Package,
-  ShoppingBag, Users, LogOut, Store, Ticket, Star, Image,
+  ShoppingBag, Users, LogOut, Store, Ticket, Star, Image, FolderOpen,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -23,6 +23,7 @@ const NAV = [
   { href: '/admin/reviews',     label: 'Reviews',      icon: Star },
   { href: '/admin/testimonials',label: 'Testimonials', icon: MessageSquare },
   { href: '/admin/gallery',     label: 'Gallery',      icon: Image },
+  { href: '/admin/media',       label: 'Media Library',icon: FolderOpen },
   { href: '/admin/discounts',   label: 'Discounts',    icon: Ticket },
   { href: '/admin/audit-logs',  label: 'Audit Log',    icon: BarChart3 },
 ] as const;

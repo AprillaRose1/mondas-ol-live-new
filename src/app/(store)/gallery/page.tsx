@@ -25,7 +25,7 @@ const Gallery = () => {
   );
 
   return (
-    <div className="min-h-screen bg-bg-page px-6 pb-24 text-text-main lg:px-12">
+    <div className="min-h-screen bg-bg-page px-6 pt-12 pb-24 text-text-main lg:px-12 lg:pt-16">
       <div className="container-premium mx-auto max-w-7xl">
         <motion.div
           variants={staggerContainer}
@@ -34,9 +34,9 @@ const Gallery = () => {
           className="mb-16 md:mb-20"
         >
           <PageHeader
-            eyebrow={t('contact.badge')}
-            title={t('nav.gallery', 'Gallery')}
-            subtitle={t('gallery.subtitle', 'A visual journey through our Dougga groves and Mondas OL craft.')}
+            eyebrow={t('gallery.badge', 'Galerie')}
+            title={t('nav.gallery', 'Galerie')}
+            subtitle={t('gallery.subtitle', 'Eine visuelle Reise durch unsere Haine in Dougga und das Handwerk von Mondas ÖL.')}
             align="center"
           />
         </motion.div>

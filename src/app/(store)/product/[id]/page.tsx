@@ -100,7 +100,7 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="min-h-screen pb-24 bg-bg-page text-text-main">
+    <div className="min-h-screen pt-6 pb-24 bg-bg-page text-text-main lg:pt-10">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Breadcrumbs */}
         <nav className="py-8 flex gap-2 text-[10px] font-bold uppercase tracking-widest text-text-muted">

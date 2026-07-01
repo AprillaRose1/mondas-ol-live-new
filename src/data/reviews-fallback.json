@@ -1,0 +1,38 @@
+[
+  {
+    "id": "fb-1",
+    "userId": "fb-marc-d",
+    "userName": "Marc D.",
+    "userRole": "Verifizierter Kunde",
+    "text": "Ein außergewöhnliches Öl – frisch, intensiv und unglaublich ausgewogen. Man schmeckt die Herkunft aus Dougga in jedem Tropfen.",
+    "rating": 5,
+    "date": "2026-05-18"
+  },
+  {
+    "id": "fb-2",
+    "userId": "fb-julia-k",
+    "userName": "Julia K.",
+    "userRole": "Verifizierter Kunde",
+    "text": "Sehr hochwertig und ehrlich produziert. Dieses Olivenöl hat Charakter und Tiefe, wie man sie nur selten findet.",
+    "rating": 5,
+    "date": "2026-04-27"
+  },
+  {
+    "id": "fb-3",
+    "userId": "fb-stefano-r",
+    "userName": "Stefano R.",
+    "userRole": "Verifizierter Kunde",
+    "text": "Die Qualität ist beeindruckend – fruchtig, leicht pfeffrig und absolut naturbelassen. Für mich eines der besten Olivenöle.",
+    "rating": 5,
+    "date": "2026-04-09"
+  },
+  {
+    "id": "fb-4",
+    "userId": "fb-anna-l",
+    "userName": "Anna L.",
+    "userRole": "Verifizierter Kunde",
+    "text": "Man spürt die Tradition und Sorgfalt. Kein Vergleich zu Supermarktöl – wirklich ein Premium-Erlebnis.",
+    "rating": 5,
+    "date": "2026-03-22"
+  }
+]

@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { fadeInUp, staggerContainer, storyRevealFromLeft, storyRevealFromRight, storyRevealFromLeftDelayed, storyRevealFromRightDelayed, zoomIn, scrollViewport } from '@/lib/animations';
+import { fadeInUp, staggerContainer, storyRevealFromLeft, storyRevealFromRight, storyRevealFromLeftDelayed, storyRevealFromRightDelayed, zoomIn, scrollViewport } from '@/lib/animations';
 import { AppImage } from '@/components/ui/app-image';
 import { HeroCarousel } from '@/components/ui/hero-carousel';
 import { STORY_HERO_IMAGES } from '@/lib/hero-images';
@@ -96,7 +96,7 @@ const Story = () => {
       </section>
 
       <StorySplitSection
-        eyebrow="since 1924"
+        eyebrow={t('story.history.eyebrow')}
         title={t('story.history.title')}
         description={t('story.history.description')}
         imageSrc="/story/story2.png"
@@ -105,7 +105,7 @@ const Story = () => {
       />
 
       <StorySplitSection
-        eyebrow="the legacy"
+        eyebrow={t('story.heritage.eyebrow')}
         title={t('story.heritage.title')}
         description={t('story.heritage.description')}
         imageSrc="/story/story3.png"
@@ -114,7 +114,7 @@ const Story = () => {
       />
 
       <StorySplitSection
-        eyebrow="handcrafted"
+        eyebrow={t('story.process.eyebrow')}
         title={t('story.process.title')}
         description={t('story.process.description')}
         imageSrc="/story/story4.png"

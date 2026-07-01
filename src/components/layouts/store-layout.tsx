@@ -11,7 +11,7 @@ import { WhatsAppButton } from '@/components/common/WhatsAppButton';
 import { NotificationSimulator } from '@/components/common/NotificationSimulator';
 import { ScrollToTop } from '@/components/common/ScrollToTop';
 import { PageTransition } from '@/components/motion/page-transition';
-import { MeteorField } from '@/components/motion/meteor-field';
+// import { MeteorField } from '@/components/motion/meteor-field';
 
 export function StoreLayout({ children }: { children: React.ReactNode }) {
   const { i18n } = useTranslation();
@@ -26,7 +26,7 @@ export function StoreLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <MeteorField />
+      {/* <MeteorField /> */}
       <ScrollToTop />
       <Header />
       <main className={cn('relative z-[1] flex-grow', !isFullBleedHero && 'pt-[4.5rem] md:pt-20')}>

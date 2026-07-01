@@ -24,7 +24,7 @@ export function HomeValues() {
               transition={{ type: 'spring', stiffness: 380, damping: 22 }}
               className="bg-bg-card px-4 py-10 text-center transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(0,0,0,0.35)] md:py-14"
             >
-              <p className="font-serif text-xl italic text-primary md:text-2xl">
+              <p className="font-serif text-xl text-primary md:text-xl">
                 {t(`home.values.items.${key}.title`)}
               </p>
               <p className="label-caps mt-3">{t(`home.values.items.${key}.subtitle`)}</p>

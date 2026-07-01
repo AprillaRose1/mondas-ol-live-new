@@ -16,7 +16,7 @@ export function HomeProducts() {
   return (
     <section className="section-y-lg bg-bg-card">
       <div className="container-premium">
-        <motion.div variants={fadeInUp} className="mb-12 flex flex-col items-end justify-between gap-6 md:flex-row" initial="hidden" whileInView="visible" viewport={scrollViewport}>
+        <motion.div variants={fadeInUp} className="mb-12 flex flex-col items-center justify-between gap-6 md:flex-row" initial="hidden" whileInView="visible" viewport={scrollViewport}>
           <div>
             <p className="eyebrow">{t('shop.badge')}</p>
             <h2 className="section-title">{t('shop.title')}</h2>
