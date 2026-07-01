@@ -160,7 +160,7 @@ export default function CheckoutPage() {
   if (step === 3 && orderId) {
     return (
       <div className="container-premium min-h-screen bg-bg-page py-16 md:py-24">
-        <CheckoutSuccess orderId={orderId} email={getValues('email')} />
+        <CheckoutSuccess orderId={orderId} email={getValues('email') ?? ''} />
       </div>
     );
   }
