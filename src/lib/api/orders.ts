@@ -1,7 +1,7 @@
-﻿import { apiGet, apiPatch } from '@/lib/api/http';
-import { API_ROUTES } from '@/lib/api/routes';
 import type { Order, OrderStatus } from '@/lib/types/user';
 import type { PaginatedResult } from '@/lib/types/common';
+import { MOCK_ORDERS } from '@/data/orders';
+import { mockDelay, paginate } from '@/lib/api/_mock';
 
 export interface OrdersQuery {
   page?: number;
@@ -10,22 +10,27 @@ export interface OrdersQuery {
   userId?: string;
 }
 
-function buildQuery(q?: OrdersQuery): string {
-  if (!q) return '';
-  const p = new URLSearchParams();
-  if (q.page)   p.set('page', String(q.page));
-  if (q.limit)  p.set('limit', String(q.limit));
-  if (q.status) p.set('status', q.status);
-  if (q.userId) p.set('userId', q.userId);
-  const s = p.toString();
-  return s ? '?' + s : '';
-}
+export const fetchOrders = (
+  query?: OrdersQuery,
+): Promise<PaginatedResult<Order>> => {
+  let list = [...MOCK_ORDERS];
+  if (query?.status) list = list.filter((o) => o.status === query.status);
+  if (query?.userId) list = list.filter((o) => o.userId === query.userId);
+  return mockDelay(paginate(list, query?.page ?? 1, query?.limit ?? 20));
+};
 
-export const fetchOrders = (query?: OrdersQuery) =>
-  apiGet<PaginatedResult<Order>>(API_ROUTES.orders + buildQuery(query));
+export const fetchOrderById = (id: string): Promise<Order> => {
+  const order = MOCK_ORDERS.find((o) => o.id === id);
+  return order
+    ? mockDelay(order)
+    : Promise.reject(new Error('Order not found'));
+};
 
-export const fetchOrderById = (id: string) =>
-  apiGet<Order>(API_ROUTES.order(id));
-
-export const updateOrderStatus = (id: string, status: OrderStatus, notes?: string) =>
-  apiPatch<Order>(API_ROUTES.orderStatus(id), { status, notes });
+export const updateOrderStatus = (
+  id: string,
+  status: OrderStatus,
+  notes?: string,
+): Promise<Order> => {
+  const base = MOCK_ORDERS.find((o) => o.id === id) ?? MOCK_ORDERS[0];
+  return mockDelay({ ...base, id, status, ...(notes !== undefined ? { notes } : {}) });
+};

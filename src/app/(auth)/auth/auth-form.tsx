@@ -11,7 +11,6 @@ import { toast } from 'sonner';
 import { login, register } from '@/lib/api/auth';
 import type { SessionUser } from '@/lib/auth/types';
 import { ApiError } from '@/lib/api/http';
-import { API_BASE } from '@/lib/api/routes';
 import { toReduxUser } from '@/lib/auth/credentials';
 import { ROUTES } from '@/lib/auth/constants';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux';
@@ -156,10 +155,9 @@ function MetaIcon() {
 // ── Social auth buttons ────────────────────────────────────────────────────────
 function SocialAuthButtons() {
   const { t } = useTranslation();
-  const handleSocial = (provider: 'google' | 'facebook') => {
-    // Full-page redirect to the backend OAuth start endpoint; it sets the JWT
-    // cookie and redirects back to the storefront.
-    window.location.href = API_BASE + '/api/auth/' + provider;
+  const handleSocial = (_provider: 'google' | 'facebook') => {
+    // Standalone build: social OAuth needs the backend and is disabled here.
+    toast.info(t('auth.social_coming_soon', 'Social login is unavailable in this demo'));
   };
   return (
     <>

@@ -1,16 +1,34 @@
-﻿import { apiDelete, apiGet, apiPatch, apiPost } from '@/lib/api/http';
-import { API_ROUTES } from '@/lib/api/routes';
 import type { Testimonial, PaginatedResult } from '@/lib/types/common';
+import { MOCK_TESTIMONIALS } from '@/data/testimonials';
+import { mockDelay, mockId, paginate } from '@/lib/api/_mock';
 
-export const fetchTestimonials = (page = 1, limit = 20) =>
-  apiGet<PaginatedResult<Testimonial>>(API_ROUTES.testimonials + '?page=' + page + '&limit=' + limit);
+export const fetchTestimonials = (
+  page = 1,
+  limit = 20,
+): Promise<PaginatedResult<Testimonial>> =>
+  mockDelay(paginate(MOCK_TESTIMONIALS, page, limit));
 
-// userId is NOT sent — backend reads it from the JWT cookie
-export const submitTestimonial = (payload: { text: string; rating: number }) =>
-  apiPost<Testimonial>(API_ROUTES.testimonials, payload);
+export const submitTestimonial = (payload: {
+  text: string;
+  rating: number;
+}): Promise<Testimonial> =>
+  mockDelay({
+    id: mockId(),
+    userId: 'me',
+    userName: 'You',
+    userRole: 'Verified Customer',
+    text: payload.text,
+    rating: payload.rating,
+    date: new Date().toISOString().slice(0, 10),
+  });
 
-export const updateTestimonial = (id: string, payload: { text?: string; rating?: number }) =>
-  apiPatch<Testimonial>(API_ROUTES.testimonial(id), payload);
+export const updateTestimonial = (
+  id: string,
+  payload: { text?: string; rating?: number },
+): Promise<Testimonial> => {
+  const base = MOCK_TESTIMONIALS.find((t) => t.id === id) ?? MOCK_TESTIMONIALS[0];
+  return mockDelay({ ...base, ...payload, id });
+};
 
-export const deleteTestimonial = (id: string) =>
-  apiDelete<{ ok: boolean }>(API_ROUTES.testimonial(id));
+export const deleteTestimonial = (_id: string): Promise<{ ok: boolean }> =>
+  mockDelay({ ok: true });

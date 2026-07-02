@@ -1,5 +1,4 @@
-﻿import { apiDelete, apiGet, apiPatch, apiPost } from '@/lib/api/http';
-import { API_ROUTES } from '@/lib/api/routes';
+import { mockDelay, mockId } from '@/lib/api/_mock';
 
 export interface CouponResult {
   valid: boolean;
@@ -33,17 +32,47 @@ export interface CreateDiscountInput {
   active?: boolean;
 }
 
-export const validateCoupon = (code: string, orderAmount: number) =>
-  apiPost<CouponResult>(API_ROUTES.discounts + '/validate', { code, orderAmount });
+export const validateCoupon = (
+  code: string,
+  orderAmount: number,
+): Promise<CouponResult> =>
+  mockDelay({
+    valid: false,
+    code,
+    type: 'percentage',
+    value: 0,
+    discountAmount: 0,
+    finalAmount: orderAmount,
+    message: 'Coupons are disabled in the standalone demo.',
+  });
 
-export const fetchDiscounts = () =>
-  apiGet<Discount[]>(API_ROUTES.discounts);
+export const fetchDiscounts = (): Promise<Discount[]> => mockDelay([]);
 
-export const createDiscount = (input: CreateDiscountInput) =>
-  apiPost<Discount>(API_ROUTES.discounts, input);
+export const createDiscount = (input: CreateDiscountInput): Promise<Discount> =>
+  mockDelay({
+    id: mockId(),
+    code: input.code,
+    type: input.type,
+    value: input.value,
+    minOrderAmount: input.minOrderAmount ?? 0,
+    maxUses: input.maxUses ?? null,
+    usedCount: 0,
+    expiresAt: input.expiresAt ?? null,
+    active: input.active ?? true,
+  });
 
-export const toggleDiscount = (id: string) =>
-  apiPatch<Discount>(API_ROUTES.discounts + '/' + id + '/toggle', {});
+export const toggleDiscount = (id: string): Promise<Discount> =>
+  mockDelay({
+    id,
+    code: 'DEMO',
+    type: 'percentage',
+    value: 0,
+    minOrderAmount: 0,
+    maxUses: null,
+    usedCount: 0,
+    expiresAt: null,
+    active: true,
+  });
 
-export const deleteDiscount = (id: string) =>
-  apiDelete<{ ok: boolean }>(API_ROUTES.discounts + '/' + id);
+export const deleteDiscount = (_id: string): Promise<{ ok: boolean }> =>
+  mockDelay({ ok: true });

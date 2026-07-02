@@ -4,9 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
-import { apiGet } from '@/lib/api/http';
-import { API_ROUTES } from '@/lib/api/routes';
-import type { PaginatedResult } from '@/lib/types/common';
 import { cn } from '@/lib/utils';
 
 interface AuditLog {
@@ -42,13 +39,11 @@ export default function AuditLogsPage() {
   const [entityFilter, setEntityFilter] = useState('');
 
   useEffect(() => {
+    // Standalone build: no audit backend — render an empty log.
     setLoading(true);
-    const params = new URLSearchParams({ page: String(page), limit: String(LIMIT) });
-    if (entityFilter) params.set('entity', entityFilter);
-    apiGet<PaginatedResult<AuditLog>>(API_ROUTES.auditLogs + '?' + params.toString())
-      .then((r) => { setLogs(r.data); setTotal(r.total); })
-      .catch(() => {})
-      .finally(() => setLoading(false));
+    setLogs([]);
+    setTotal(0);
+    setLoading(false);
   }, [page, entityFilter]);
 
   const filtered = search

@@ -1,15 +1,29 @@
-﻿import { apiGet, apiPost } from '@/lib/api/http';
-import { API_ROUTES } from '@/lib/api/routes';
 import type { SessionUser } from '@/lib/auth/types';
+import { mockDelay } from '@/lib/api/_mock';
 
-export const fetchSession = () =>
-  apiGet<{ user: SessionUser | null }>(API_ROUTES.auth.session);
+// Standalone demo identity. Session starts logged-out; login/register resolve
+// this user so the auth flows work without a backend.
+const DEMO_USER: SessionUser = {
+  id: 'demo-user',
+  email: 'demo@mondas.local',
+  name: 'Demo Admin',
+  role: 'admin' as SessionUser['role'],
+};
 
-export const login = (payload: { email: string; password: string }) =>
-  apiPost<{ user: SessionUser }>(API_ROUTES.auth.login, payload);
+export const fetchSession = (): Promise<{ user: SessionUser | null }> =>
+  mockDelay({ user: null });
 
-export const register = (payload: { email: string; password: string; name: string }) =>
-  apiPost<{ user: SessionUser }>(API_ROUTES.auth.register, payload);
+export const login = (payload: {
+  email: string;
+  password: string;
+}): Promise<{ user: SessionUser }> =>
+  mockDelay({ user: { ...DEMO_USER, email: payload.email } });
 
-export const logout = () =>
-  apiPost<{ ok: boolean }>(API_ROUTES.auth.logout, {});
+export const register = (payload: {
+  email: string;
+  password: string;
+  name: string;
+}): Promise<{ user: SessionUser }> =>
+  mockDelay({ user: { ...DEMO_USER, email: payload.email, name: payload.name } });
+
+export const logout = (): Promise<{ ok: boolean }> => mockDelay({ ok: true });

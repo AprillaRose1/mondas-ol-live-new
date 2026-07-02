@@ -1,6 +1,5 @@
-﻿import { apiPost } from '@/lib/api/http';
-import { API_ROUTES } from '@/lib/api/routes';
 import type { ShippingFormData } from '@/lib/schemas';
+import { mockDelay, mockId } from '@/lib/api/_mock';
 
 export interface CheckoutLineItem {
   productId: string;
@@ -27,9 +26,6 @@ export interface CheckoutResponse {
   clientSecret: string | null;
 }
 
-export const submitCheckout = (payload: CheckoutPayload) =>
-  apiPost<CheckoutResponse>(API_ROUTES.checkout, payload);
-
 export interface PaymentIntentResponse {
   orderId: string;
   clientSecret: string | null;
@@ -38,6 +34,24 @@ export interface PaymentIntentResponse {
   couponCode?: string;
 }
 
-/** Creates a Stripe PaymentIntent + a pending order; returns the client secret for Stripe Elements. */
-export const createPaymentIntent = (payload: CheckoutPayload) =>
-  apiPost<PaymentIntentResponse>(API_ROUTES.checkout + '/create-intent', payload);
+// Standalone build: no payment backend. The order is "recorded" locally and no
+// Stripe client secret is issued (clientSecret stays null → the UI shows the
+// non-Stripe confirmation path).
+export const submitCheckout = (
+  payload: CheckoutPayload,
+): Promise<CheckoutResponse> =>
+  mockDelay<CheckoutResponse>({
+    orderId: mockId(),
+    status: 'pending',
+    total: payload.subtotal + payload.shippingCost,
+    clientSecret: null,
+  });
+
+export const createPaymentIntent = (
+  payload: CheckoutPayload,
+): Promise<PaymentIntentResponse> =>
+  mockDelay({
+    orderId: mockId(),
+    clientSecret: null,
+    total: payload.subtotal + payload.shippingCost,
+  });

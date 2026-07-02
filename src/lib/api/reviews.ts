@@ -1,6 +1,6 @@
-import { apiDelete, apiGet, apiPatch, apiPost } from '@/lib/api/http';
-import { API_BASE } from '@/lib/api/routes';
 import type { PaginatedResult } from '@/lib/types/common';
+import fallback from '@/data/reviews-fallback.json';
+import { mockDelay, mockId, paginate } from '@/lib/api/_mock';
 
 export type ReviewStatus = 'pending' | 'approved' | 'rejected';
 
@@ -25,44 +25,80 @@ export interface ReviewsResult {
   reviews: Review[];
   count: number;
   averageRating: number;
-  /** The caller's own review in any state (null when unauthenticated / none). */
   myReview: Review | null;
 }
 
-// ── Public / storefront ──────────────────────────────────────────────────────
+interface FallbackReview {
+  id: string;
+  userId: string;
+  userName: string;
+  userRole: string;
+  text: string;
+  rating: number;
+  date: string;
+}
 
-export const fetchReviews = (productId: string) =>
-  apiGet<ReviewsResult>(API_BASE + '/api/products/' + productId + '/reviews');
+const FALLBACK = fallback as FallbackReview[];
+
+const toReview = (r: FallbackReview, productId: string): Review => ({
+  id: r.id,
+  productId,
+  userId: r.userId,
+  userName: r.userName,
+  userAvatar: null,
+  rating: r.rating,
+  text: r.text,
+  likes: 0,
+  status: 'approved',
+  verifiedPurchase: true,
+  moderatedById: null,
+  moderatedAt: null,
+  createdAt: r.date,
+  updatedAt: r.date,
+});
+
+export const fetchReviews = (productId: string): Promise<ReviewsResult> => {
+  const reviews = FALLBACK.map((r) => toReview(r, productId));
+  const averageRating = reviews.length
+    ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length
+    : 0;
+  return mockDelay({ reviews, count: reviews.length, averageRating, myReview: null });
+};
 
 export const createReview = (
   productId: string,
   payload: { rating: number; text: string },
-) =>
-  apiPost<Review>(
-    API_BASE + '/api/products/' + productId + '/reviews',
-    payload,
+): Promise<Review> =>
+  mockDelay(
+    toReview(
+      {
+        id: mockId(),
+        userId: 'me',
+        userName: 'You',
+        userRole: 'Verified Customer',
+        text: payload.text,
+        rating: payload.rating,
+        date: new Date().toISOString(),
+      },
+      productId,
+    ),
   );
 
-export const likeReview = (productId: string, reviewId: string) =>
-  apiPatch<Review>(
-    API_BASE + '/api/products/' + productId + '/reviews/' + reviewId + '/like',
-    {},
-  );
+export const likeReview = (productId: string, reviewId: string): Promise<Review> =>
+  mockDelay({ ...toReview(FALLBACK[0], productId), id: reviewId, likes: 1 });
 
-export const deleteReview = (productId: string, reviewId: string) =>
-  apiDelete<{ ok: boolean }>(
-    API_BASE + '/api/products/' + productId + '/reviews/' + reviewId,
-  );
+export const deleteReview = (
+  _productId: string,
+  _reviewId: string,
+): Promise<{ ok: boolean }> => mockDelay({ ok: true });
 
-// ── Admin moderation ─────────────────────────────────────────────────────────
+export const fetchReviewQueue = (
+  _status: ReviewStatus = 'pending',
+  page = 1,
+): Promise<PaginatedResult<Review>> => mockDelay(paginate([] as Review[], page, 20));
 
-export const fetchReviewQueue = (status: ReviewStatus = 'pending', page = 1) =>
-  apiGet<PaginatedResult<Review>>(
-    API_BASE + '/api/reviews?status=' + status + '&page=' + page,
-  );
+export const approveReview = (reviewId: string): Promise<Review> =>
+  mockDelay({ ...toReview(FALLBACK[0], 'p1'), id: reviewId, status: 'approved' });
 
-export const approveReview = (reviewId: string) =>
-  apiPatch<Review>(API_BASE + '/api/reviews/' + reviewId + '/approve', {});
-
-export const rejectReview = (reviewId: string) =>
-  apiPatch<Review>(API_BASE + '/api/reviews/' + reviewId + '/reject', {});
+export const rejectReview = (reviewId: string): Promise<Review> =>
+  mockDelay({ ...toReview(FALLBACK[0], 'p1'), id: reviewId, status: 'rejected' });
