@@ -312,7 +312,7 @@ export const fr = {
     form_title: "Envoyez-nous un message",
     info: {
       location: "Emplacement",
-      location_detail: "Dougga, gouvernorat de Béja, Tunisie",
+      location_detail: "Hauptstraße 332, 53639 Königswinter",
       email_value: "hello@mondasol.tn",
       phone_value: "+216 78 000 000",
       email: "E-mail",
@@ -334,7 +334,7 @@ export const fr = {
     still_questions: "Encore des questions ?",
     still_questions_desc: "Notre Ã©quipe d'experts se fera un plaisir de rÃ©pondre Ã  vos questions spÃ©cifiques sur les variÃ©tÃ©s ou les coopÃ©rations.",
     map_eyebrow: "Nous rendre visite",
-    map_title: "Dougga, Tunisie",
+    map_title: "Hauptstraße, Königswinter",
     open_maps: "Ouvrir dans Maps"
   },
   checkout: {

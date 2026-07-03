@@ -4,14 +4,12 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import { de } from './de';
 import { en } from './en';
 import { fr } from './fr';
-import { ar } from './ar';
 import { SUPPORTED_LNGS, FALLBACK_LNG, LANG_COOKIE } from './settings';
 
 const resources = {
   de: { translation: de },
   en: { translation: en },
   fr: { translation: fr },
-  ar: { translation: ar },
 };
 
 // Guard against double-init (module can evaluate more than once across the

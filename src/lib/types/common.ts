@@ -1,4 +1,4 @@
-﻿export type Language = 'de' | 'en' | 'fr' | 'ar';
+﻿export type Language = 'de' | 'en' | 'fr';
 
 export interface Testimonial {
   id: string;

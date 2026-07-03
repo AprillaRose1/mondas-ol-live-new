@@ -6,15 +6,11 @@ export const MOCK_PRODUCTS: Product[] = [
     name: {
       de: "Goldene Ernte Extra Vergine",
       en: "Golden Harvest Extra Virgin",
-      fr: "Récolte d'Or Extra Vierge",
-      ar: "الحصاد الذهبي بكر ممتاز"
-    },
+      fr: "Récolte d'Or Extra Vierge",    },
     description: {
       de: "Unser Flaggschiff unter den Olivenölen, kalt gepresst aus den feinsten Koroneiki-Oliven.",
       en: "Our flagship olive oil, cold-pressed from the finest Koroneiki olives.",
-      fr: "Notre huile d'olive phare, pressée à froid à partir des meilleures olives Koroneiki.",
-      ar: "زيت الزيتون الرائد لدينا، معصور على البارد من أجود أنواع زيتون كورونيكي."
-    },
+      fr: "Notre huile d'olive phare, pressée à froid à partir des meilleures olives Koroneiki.",    },
     price: 34.99,
     images: [
       "/products/product1.png",
