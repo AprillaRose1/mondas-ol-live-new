@@ -1,6 +1,7 @@
 /** Home page hero slides — files in `public/hero/` */
 export const HOME_HERO_IMAGES = [
   '/hero/hero.png',
+  '/hero/hero2.png',
   '/hero/hero3.png',
 ] as const;
 
