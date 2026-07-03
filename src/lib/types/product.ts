@@ -1,7 +1,7 @@
 ﻿export interface Product {
   id: string;
-  name: { de: string; en: string; fr: string; ar: string };
-  description: { de: string; en: string; fr: string; ar: string };
+  name: { de: string; en: string; fr: string };
+  description: { de: string; en: string; fr: string };
   price: number;
   images: string[];
   category: 'extra-virgin' | 'infusions' | 'premium' | 'sets';

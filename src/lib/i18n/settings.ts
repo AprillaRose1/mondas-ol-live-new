@@ -1,7 +1,7 @@
 // Framework-agnostic i18n settings — safe to import from server components
 // (no i18next / browser-only code here).
 
-export const SUPPORTED_LNGS = ['de', 'en', 'fr', 'ar'] as const;
+export const SUPPORTED_LNGS = ['de', 'en', 'fr'] as const;
 export type Lang = (typeof SUPPORTED_LNGS)[number];
 
 export const FALLBACK_LNG: Lang = 'de';
@@ -26,4 +26,5 @@ export function pickLanguage(
   return FALLBACK_LNG;
 }
 
-export const dirFor = (lng: string): 'rtl' | 'ltr' => (lng === 'ar' ? 'rtl' : 'ltr');
+// Only LTR languages remain. Kept as a function so callers stay unchanged.
+export const dirFor = (_lng?: string): 'rtl' | 'ltr' => 'ltr';

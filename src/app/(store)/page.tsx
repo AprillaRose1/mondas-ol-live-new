@@ -2,6 +2,7 @@
 
 import {
   HomeHero,
+  HomeRestaurant,
   HomeIntro,
   HomeTraditionSplit,
   HomeAncientTree,
@@ -20,6 +21,7 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden bg-bg-page text-text-main">
       <HomeHero />
+      <HomeRestaurant />
       <HomeIntro />
       <HomeTraditionSplit />
       <HomeAncientTree />

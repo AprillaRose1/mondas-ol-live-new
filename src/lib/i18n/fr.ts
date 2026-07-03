@@ -31,6 +31,10 @@ export const fr = {
       video_cta: "Découvrir Dougga",
       image_alt: "Oliveraies près de Dougga antique, Tunisie"
     },
+    restaurant: {
+      cta: "Visiter le restaurant Mondas",
+      body: "Notre huile d'olive est utilisée directement au restaurant et est aussi disponible pour nos clients — fraîche, de haute qualité et pleine de saveurs méditerranéennes."
+    },
     intro: {
       eyebrow: "Notre huile EVO",
       body: "Mondas ÖL naît sur les collines de Dougga, Tunisie — paysage UNESCO où les olives Chemlali sont cueillies à la main au début de l'automne et pressées à froid en quelques heures, par des procédés mécaniques qui préservent arôme, polyphénols et pureté."
@@ -312,7 +316,7 @@ export const fr = {
     form_title: "Envoyez-nous un message",
     info: {
       location: "Emplacement",
-      location_detail: "Dougga, gouvernorat de Béja, Tunisie",
+      location_detail: "Hauptstraße 332, 53639 Königswinter",
       email_value: "hello@mondasol.tn",
       phone_value: "+216 78 000 000",
       email: "E-mail",
@@ -334,7 +338,7 @@ export const fr = {
     still_questions: "Encore des questions ?",
     still_questions_desc: "Notre Ã©quipe d'experts se fera un plaisir de rÃ©pondre Ã  vos questions spÃ©cifiques sur les variÃ©tÃ©s ou les coopÃ©rations.",
     map_eyebrow: "Nous rendre visite",
-    map_title: "Dougga, Tunisie",
+    map_title: "Hauptstraße, Königswinter",
     open_maps: "Ouvrir dans Maps"
   },
   checkout: {

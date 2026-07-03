@@ -18,7 +18,7 @@ export const fetchGallery = (
 
 export const createGalleryItem = (data: {
   url: string;
-  title: { de: string; en: string; fr: string; ar: string };
+  title: { de: string; en: string; fr: string };
   category: string;
 }): Promise<GalleryImage> => mockDelay({ id: mockId(), ...data });
 
@@ -26,7 +26,7 @@ export const updateGalleryItem = (
   id: string,
   data: Partial<{
     url: string;
-    title: { de: string; en: string; fr: string; ar: string };
+    title: { de: string; en: string; fr: string };
     category: string;
   }>,
 ): Promise<GalleryImage> => {

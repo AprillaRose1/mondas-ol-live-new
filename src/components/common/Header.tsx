@@ -217,7 +217,7 @@ export const Header = () => {
                     className="absolute right-0 top-full pt-2 z-50"
                   >
                     <div className="bg-bg-nav border border-border-subtle rounded-sm shadow-2xl overflow-hidden py-1 min-w-[140px] backdrop-blur-md">
-                      {['de', 'en', 'fr', 'ar'].map((lng) => (
+                      {['de', 'en', 'fr'].map((lng) => (
                         <button
                           key={lng}
                           onClick={() => {
@@ -340,7 +340,7 @@ export const Header = () => {
                   <div className="flex items-center justify-between">
                     <span className="label-caps">{t('header.lang')}</span>
                     <div className="flex gap-2">
-                      {['de', 'en', 'fr', 'ar'].map((lng) => (
+                      {['de', 'en', 'fr'].map((lng) => (
                         <button
                           key={lng}
                           onClick={() => changeLanguage(lng)}

@@ -31,6 +31,10 @@ export const de = {
       video_cta: "Dougga entdecken",
       image_alt: "Olivenhaine bei antikem Dougga, Tunesien"
     },
+    restaurant: {
+      cta: "Mondas Restaurant besuchen",
+      body: "Unser Olivenöl wird direkt im Restaurant verwendet und ist auch für unsere Gäste erhältlich – frisch, hochwertig und voller mediterranem Geschmack."
+    },
     intro: {
       eyebrow: "Unser EVO-Öl",
       body: "Mondas ÖL entsteht auf den Hügeln von Dougga in Tunesien – einer UNESCO-Landschaft, in der Chemlali-Oliven im frühen Herbst von Hand geerntet und innerhalb weniger Stunden ausschließlich mechanisch kalt gepresst werden. So bleiben Aroma, Polyphenole und Reinheit in ihrer vollen Intensität bewahrt – für ein Öl, das seine Herkunft in jedem Tropfen spürbar macht."
@@ -317,7 +321,7 @@ export const de = {
     form_title: "Senden Sie uns eine Nachricht",
     info: {
       location: "Standort",
-      location_detail: "Dougga, Gouvernement Béja, Tunesien",
+      location_detail: "Hauptstraße 332, 53639 Königswinter",
       email_value: "hello@mondasol.tn",
       phone_value: "+216 78 000 000",
       email: "E-Mail",
@@ -339,7 +343,7 @@ export const de = {
     still_questions: "Noch Fragen?",
     still_questions_desc: "Unser Expertenteam hilft Ihnen gerne bei speziellen Fragen zu Sorten oder Kooperationen.",
     map_eyebrow: "Besuchen Sie uns",
-    map_title: "Dougga, Tunesien",
+    map_title: "Hauptstraße, Königswinter",
     open_maps: "In Karten Öffnen"
   },
   checkout: {
