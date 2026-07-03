@@ -7,6 +7,15 @@ interface Shipping {
   address?: string; city?: string; zip?: string; country?: string;
 }
 
+// Escape user-supplied strings before dropping them into the HTML email body,
+// so a crafted shipping name/address can't inject markup in a webmail client.
+const esc = (v: string | undefined): string =>
+  (v ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
 export async function POST(req: Request) {
   // Build/validate the order first. A malformed payload (empty cart, unknown
   // productId) is a real 400 — distinct from the best-effort mail send below,
@@ -47,11 +56,11 @@ export async function POST(req: Request) {
       `${s.email ?? ''} / ${s.phone ?? ''}\n\n` +
       `Payment ref: ${body.paymentRef ?? '—'}`;
     const html =
-      `<h2>New order (${body.paymentProvider ?? 'unknown'})</h2>` +
-      `<ul>${lines.map((l) => `<li>${l.quantity}× ${l.name} — €${l.lineTotal.toFixed(2)}</li>`).join('')}</ul>` +
+      `<h2>New order (${esc(body.paymentProvider) || 'unknown'})</h2>` +
+      `<ul>${lines.map((l) => `<li>${l.quantity}× ${esc(l.name)} — €${l.lineTotal.toFixed(2)}</li>`).join('')}</ul>` +
       `<p><b>Subtotal:</b> €${subtotal.toFixed(2)}<br/><b>Shipping:</b> €${shipping.toFixed(2)}<br/><b>Total:</b> €${total.toFixed(2)}</p>` +
-      `<h3>Ship to</h3><p>${s.firstName ?? ''} ${s.lastName ?? ''}<br/>${s.address ?? ''}<br/>${s.city ?? ''} ${s.zip ?? ''}<br/>${s.country ?? ''}<br/>${s.email ?? ''} / ${s.phone ?? ''}</p>` +
-      `<p><b>Payment ref:</b> ${body.paymentRef ?? '—'}</p>`;
+      `<h3>Ship to</h3><p>${esc(s.firstName)} ${esc(s.lastName)}<br/>${esc(s.address)}<br/>${esc(s.city)} ${esc(s.zip)}<br/>${esc(s.country)}<br/>${esc(s.email)} / ${esc(s.phone)}</p>` +
+      `<p><b>Payment ref:</b> ${esc(body.paymentRef) || '—'}</p>`;
 
     await getTransporter().sendMail({
       from,

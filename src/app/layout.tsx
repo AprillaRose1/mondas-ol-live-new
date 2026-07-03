@@ -6,6 +6,7 @@ import { Providers } from '@/app/providers';
 import { pickLanguage, dirFor, LANG_COOKIE } from '@/lib/i18n/settings';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
   title: 'Mondas Öl',
   description: 'Premium olive oil from Dougga, Tunisia',
   icons: {
