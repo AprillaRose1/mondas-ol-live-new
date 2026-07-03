@@ -92,8 +92,8 @@ export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
               <AppImage
                 src={product.images[currentImageIndex]}
                 alt={product.name[currentLang]}
+                objectFit="contain"
                 sizes="(max-width: 768px) 100vw, 25vw"
-                className={cn('transition-transform duration-700', isHovered && 'scale-105')}
               />
             </motion.div>
           </AnimatePresence>

@@ -57,7 +57,7 @@ export function AppImage({
       onLoad={() => setLoaded(true)}
       className={cn(
         objectFit === 'contain' ? 'object-contain object-center' : 'object-cover object-center',
-        hoverZoom && objectFit === 'cover' && 'transition-transform duration-700 ease-out will-change-transform group-hover:scale-110',
+        hoverZoom && 'transition-transform duration-700 ease-out will-change-transform group-hover:scale-110',
         className,
       )}
       {...props}
