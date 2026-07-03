@@ -8,14 +8,27 @@ interface Shipping {
 }
 
 export async function POST(req: Request) {
+  // Build/validate the order first. A malformed payload (empty cart, unknown
+  // productId) is a real 400 — distinct from the best-effort mail send below,
+  // which must never make a paid order look failed.
+  let body: {
+    items?: { productId: string; quantity: number }[];
+    shipping?: Shipping;
+    paymentProvider?: string;
+    paymentRef?: string;
+  };
+  let order: ReturnType<typeof buildOrder>;
   try {
-    const body = (await req.json()) as {
-      items?: { productId: string; quantity: number }[];
-      shipping?: Shipping;
-      paymentProvider?: string;
-      paymentRef?: string;
-    };
-    const { lines, subtotal, shipping, total } = buildOrder(body.items ?? []);
+    body = await req.json();
+    order = buildOrder(body.items ?? []);
+  } catch (e) {
+    console.error('[orders/email] invalid order payload', e);
+    return NextResponse.json({ error: 'Invalid order' }, { status: 400 });
+  }
+
+  const { lines, subtotal, shipping, total } = order;
+
+  try {
     const to = process.env.ORDER_EMAIL_TO;
     const from = process.env.ORDER_EMAIL_FROM ?? process.env.SMTP_USER;
 
