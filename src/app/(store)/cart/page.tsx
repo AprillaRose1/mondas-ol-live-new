@@ -6,8 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Trash2, ShoppingBasket, ArrowRight, Minus, Plus, Tag, X } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux';
-import { removeItem, updateQuantity, setCoupon, clearCoupon } from '@/store/slices/cartSlice';
-import { validateCoupon } from '@/lib/api/discounts';
+import { removeItem, updateQuantity, clearCoupon } from '@/store/slices/cartSlice';
 import { toast } from 'sonner';
 import { Language } from '@/lib/types';
 import { cn } from '@/lib/utils';
@@ -38,13 +37,8 @@ const Cart = () => {
     if (!couponInput.trim()) return;
     setCouponLoading(true);
     try {
-      const result = await validateCoupon(couponInput.trim(), subtotal);
-      if (result.valid) {
-        dispatch(setCoupon({ code: result.code, discountAmount: result.discountAmount, message: result.message }));
-        toast.success(result.message);
-      } else {
-        toast.error(result.message);
-      }
+      // Coupons are disabled in the standalone demo.
+      toast.error('Coupons are disabled in the standalone demo.');
     } catch { toast.error('Could not validate coupon'); }
     finally { setCouponLoading(false); }
   };

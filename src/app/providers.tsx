@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { I18nextProvider } from 'react-i18next';
 import { store, persistor } from '@/store';
-import { AuthHydrator } from '@/components/providers/auth-hydrator';
 import i18nGlobal from '@/lib/i18n/config';
 import { dirFor } from '@/lib/i18n/settings';
 
@@ -42,7 +41,6 @@ export function Providers({
     <I18nextProvider i18n={i18n}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <AuthHydrator />
           {children}
         </PersistGate>
       </Provider>

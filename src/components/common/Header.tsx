@@ -4,10 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import { ShoppingCart, Heart, User, Globe, Menu, X, LogOut, MoreHorizontal } from 'lucide-react';
-import { logout as logoutApi } from '@/lib/api/auth';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux';
-import { logout } from '@/store/slices/authSlice';
+import { ShoppingCart, Heart, Globe, Menu, X, MoreHorizontal } from 'lucide-react';
+import { useAppSelector } from '@/lib/hooks/redux';
 import { cn } from '@/lib/utils';
 import { BRAND_ACCENTS, applyBrandAccent } from '@/lib/brand-themes';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -50,16 +48,6 @@ export const Header = () => {
   
   const cartCount = useAppSelector(state => state.cart.items.reduce((acc, item) => acc + item.quantity, 0));
   const wishlistCount = useAppSelector(state => state.wishlist.itemIds.length);
-  const { isAuthenticated, user } = useAppSelector(state => state.auth);
-  const dispatch = useAppDispatch();
-
-  const handleLogout = async () => {
-    try {
-      await logoutApi();
-    } finally {
-      dispatch(logout());
-    }
-  };
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
@@ -95,10 +83,6 @@ export const Header = () => {
     { to: '/recipes', label: t('nav.recipes') },
     { to: '/faq', label: t('nav.faq') },
   ];
-
-  if (isAuthenticated && user && (user.role === 'admin' || user.role === 'moderator')) {
-    navLinks.push({ to: '/admin/dashboard', label: t('nav.dashboard', 'Dashboard') });
-  }
 
   const mobileNavLinks = [...navLinks, ...moreLinks];
 
@@ -273,34 +257,6 @@ export const Header = () => {
               )}
             </Link>
   
-            {isAuthenticated ? (
-              <Link
-                href="/profile"
-                className="flex items-center justify-center size-8 rounded-full bg-primary text-primary-foreground text-xs font-bold uppercase hover:opacity-90 transition-opacity"
-                title={user?.name}
-              >
-                {user?.name?.charAt(0) ?? <User size={14} />}
-              </Link>
-            ) : (
-              <Link
-                href="/auth"
-                className="hidden sm:flex items-center gap-1.5 px-4 py-2 border border-border-subtle text-[10px] font-bold uppercase tracking-widest text-text-main hover:border-primary hover:text-primary transition-all"
-              >
-                <User size={14} strokeWidth={1.5} />
-                {t('common.sign_in')}
-              </Link>
-            )}
-  
-            {isAuthenticated && (
-              <button 
-                onClick={handleLogout}
-                className="p-2 text-text-muted hover:text-rose-500 transition-colors group hidden sm:block"
-                title={t('profile.logout')}
-              >
-                <LogOut size={18} strokeWidth={1.5} className="transition-transform duration-500 group-hover:-translate-x-1" />
-              </button>
-            )}
-  
             <button className="lg:hidden p-2 text-text-main" onClick={() => setIsMobileMenuOpen(true)}>
               <Menu size={24} />
             </button>
@@ -378,33 +334,6 @@ export const Header = () => {
                       </span>
                     )}
                   </Link>
-                </div>
-  
-                {/* Account */}
-                <div className="flex gap-4">
-                  <Link 
-                    href={isAuthenticated ? '/profile' : '/auth'} 
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={cn(
-                      'nav-label flex-grow flex items-center justify-center gap-2 bg-text-main py-5 text-bg-page shadow-xl',
-                      isAuthenticated && "w-3/4"
-                    )}
-                  >
-                    <User size={18} />
-                    {isAuthenticated ? t('profile.title') : t('common.login')}
-                  </Link>
-                  
-                  {isAuthenticated && (
-                    <button 
-                      onClick={() => {
-                        void handleLogout();
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="w-1/4 flex items-center justify-center bg-rose-500 text-white py-5 shadow-xl"
-                    >
-                      <LogOut size={18} />
-                    </button>
-                  )}
                 </div>
   
                 <div className="space-y-6">

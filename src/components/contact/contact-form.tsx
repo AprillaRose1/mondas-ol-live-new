@@ -11,7 +11,6 @@ import { fadeInUp, scrollViewport } from '@/lib/animations';
 import { FormLabel } from '@/components/ui/typography';
 import { MondasButton } from '@/components/ui/mondas-button';
 import { submitContactMessage } from '@/lib/api/contact';
-import { ApiError } from '@/lib/api/http';
 import {
   CONTACT_SUBJECTS,
   contactFormSchema,
@@ -41,9 +40,8 @@ export function ContactForm() {
       await submitContactMessage(data);
       toast.success(t('contact.form.success'));
       reset({ name: '', email: '', subject: 'general', message: '' });
-    } catch (err) {
-      const message = err instanceof ApiError ? err.message : t('contact.form.error');
-      toast.error(message);
+    } catch {
+      toast.error(t('contact.form.error'));
     } finally {
       setIsSubmitting(false);
     }

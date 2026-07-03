@@ -12,7 +12,6 @@ import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux';
 import { clearCart } from '@/store/slices/cartSlice';
 import { checkoutFormSchema, type CheckoutFormData } from '@/lib/schemas';
 import { submitCheckout, createPaymentIntent, type CheckoutPayload } from '@/lib/api/checkout';
-import { ApiError } from '@/lib/api/http';
 import { isStripeEnabled } from '@/lib/stripe';
 import { StripePayment } from '@/components/checkout/stripe-payment';
 import { fadeInUp, staggerContainer, scrollViewport } from '@/lib/animations';
@@ -46,7 +45,6 @@ export default function CheckoutPage() {
   const lang = (i18n.language.slice(0, 2) || 'en') as Language;
   const dispatch = useAppDispatch();
   const { items, appliedCoupon } = useAppSelector((state) => state.cart);
-  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -105,9 +103,8 @@ export default function CheckoutPage() {
       dispatch(clearCart());
       setStep(3);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch (err) {
-      const message = err instanceof ApiError ? err.message : t('checkout.error');
-      toast.error(message);
+    } catch {
+      toast.error(t('checkout.error'));
     } finally {
       setIsSubmitting(false);
     }
@@ -129,8 +126,8 @@ export default function CheckoutPage() {
       if (!res.clientSecret) { toast.error(t('checkout.error')); return; }
       setOrderId(res.orderId);
       setClientSecret(res.clientSecret);
-    } catch (err) {
-      toast.error(err instanceof ApiError ? err.message : t('checkout.error'));
+    } catch {
+      toast.error(t('checkout.error'));
     } finally {
       setIsSubmitting(false);
     }
@@ -168,19 +165,6 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-bg-page pb-24">
       <div className="container-premium max-w-7xl">
-        {!isAuthenticated && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mb-10 flex flex-col items-start justify-between gap-4 border border-primary/20 bg-primary/5 p-4 md:flex-row md:items-center"
-          >
-            <p className="body-lg text-xs uppercase tracking-wide text-primary">{t('checkout.guest_notice')}</p>
-            <Link href="/auth" className="btn-mondas shrink-0 px-6 py-2">
-              {t('common.login')}
-            </Link>
-          </motion.div>
-        )}
-
         <motion.div
           variants={staggerContainer}
           initial="hidden"
