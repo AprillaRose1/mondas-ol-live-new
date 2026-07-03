@@ -2,19 +2,29 @@
 
 import { useTranslation } from 'react-i18next';
 import { CreditCard, CheckCircle, ShieldCheck } from 'lucide-react';
-import type { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { FormLabel } from '@/components/ui/typography';
-import type { CheckoutFormData } from '@/lib/schemas';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import { cn } from '@/lib/utils';
+
+export type PaymentMethod = 'card' | 'paypal';
 
 type PaymentStepProps = {
-  register: UseFormRegister<CheckoutFormData>;
-  errors: FieldErrors<CheckoutFormData>;
+  method: PaymentMethod;
+  onMethodChange: (m: PaymentMethod) => void;
+  paypalClientId: string | null;
+  onPaypalCreate: () => Promise<string>;
+  onPaypalApprove: (orderId: string) => Promise<void>;
+  /** Stripe Elements UI, rendered by the parent (card data never touches our form). */
+  cardSlot: React.ReactNode;
 };
 
-const inputClass =
-  'w-full bg-bg-card border border-border-subtle px-4 py-3 text-sm text-text-main focus:ring-1 focus:ring-primary h-[50px] rounded-sm';
-
-export function PaymentStep({ register, errors }: PaymentStepProps) {
+export function PaymentStep({
+  method,
+  onMethodChange,
+  paypalClientId,
+  onPaypalCreate,
+  onPaypalApprove,
+  cardSlot,
+}: PaymentStepProps) {
   const { t } = useTranslation();
 
   return (
@@ -26,9 +36,13 @@ export function PaymentStep({ register, errors }: PaymentStepProps) {
         </h3>
 
         <div className="grid gap-4 md:grid-cols-2">
-          <div
-            className="relative flex cursor-default items-center gap-4 border-2 border-primary bg-primary/5 p-5"
-            aria-current="true"
+          <button
+            type="button"
+            onClick={() => onMethodChange('card')}
+            className={cn(
+              'relative flex items-center gap-4 border-2 p-5 text-left transition-colors',
+              method === 'card' ? 'border-primary bg-primary/5' : 'border-border-subtle hover:border-primary/50',
+            )}
           >
             <CreditCard className="text-primary" size={22} strokeWidth={1.5} />
             <div className="flex-grow">
@@ -37,63 +51,40 @@ export function PaymentStep({ register, errors }: PaymentStepProps) {
               </p>
               <p className="body-lg mt-1 text-[10px]">Visa, Mastercard, AMEX</p>
             </div>
-            <CheckCircle size={16} className="text-primary" />
-          </div>
-          <div className="relative flex items-center gap-4 border border-border-subtle p-5 opacity-40 grayscale">
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-wide text-text-muted">
+            {method === 'card' && <CheckCircle size={16} className="text-primary" />}
+          </button>
+          <button
+            type="button"
+            onClick={() => onMethodChange('paypal')}
+            className={cn(
+              'relative flex items-center gap-4 border-2 p-5 text-left transition-colors',
+              method === 'paypal' ? 'border-primary bg-primary/5' : 'border-border-subtle hover:border-primary/50',
+            )}
+          >
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-wide text-text-main">
               {t('checkout.payment_options.paypal')}
             </p>
-            <span className="label-caps ml-auto">{t('checkout.coming_soon')}</span>
-          </div>
+            {method === 'paypal' && <CheckCircle size={16} className="ml-auto text-primary" />}
+          </button>
         </div>
       </div>
 
-      <div className="card-premium space-y-5 p-6 md:p-8">
-        <p className="label-caps">{t('checkout.card_details')}</p>
-        <div>
-          <FormLabel>{t('checkout.card.holder')}</FormLabel>
-          <input {...register('cardName')} className={inputClass} autoComplete="cc-name" />
-          {errors.cardName && (
-            <p className="mt-1 text-[10px] font-semibold uppercase text-red-500">{errors.cardName.message}</p>
-          )}
-        </div>
-        <div>
-          <FormLabel>{t('checkout.card.number')}</FormLabel>
-          <input
-            {...register('cardNumber')}
-            className={inputClass}
-            inputMode="numeric"
-            autoComplete="cc-number"
-            placeholder="0000 0000 0000 0000"
-          />
-          {errors.cardNumber && (
-            <p className="mt-1 text-[10px] font-semibold uppercase text-red-500">{errors.cardNumber.message}</p>
-          )}
-        </div>
-        <div className="grid gap-6 md:grid-cols-2">
-          <div>
-            <FormLabel>{t('checkout.card.expiry')}</FormLabel>
-            <input {...register('expiry')} className={inputClass} placeholder="MM/YY" autoComplete="cc-exp" />
-            {errors.expiry && (
-              <p className="mt-1 text-[10px] font-semibold uppercase text-red-500">{errors.expiry.message}</p>
-            )}
-          </div>
-          <div>
-            <FormLabel>{t('checkout.card.cvc')}</FormLabel>
-            <input
-              {...register('cvc')}
-              className={inputClass}
-              inputMode="numeric"
-              autoComplete="cc-csc"
-              placeholder="•••"
+      {method === 'card' && <div className="card-premium p-6 md:p-8">{cardSlot}</div>}
+
+      {method === 'paypal' &&
+        (paypalClientId ? (
+          <PayPalScriptProvider options={{ clientId: paypalClientId, currency: 'EUR', intent: 'capture' }}>
+            <PayPalButtons
+              style={{ layout: 'vertical' }}
+              createOrder={() => onPaypalCreate()}
+              onApprove={(data) => onPaypalApprove(data.orderID)}
             />
-            {errors.cvc && (
-              <p className="mt-1 text-[10px] font-semibold uppercase text-red-500">{errors.cvc.message}</p>
-            )}
-          </div>
-        </div>
-        <p className="body-lg text-xs">{t('checkout.demo_notice')}</p>
-      </div>
+          </PayPalScriptProvider>
+        ) : (
+          <p className="text-sm text-text-muted border border-border-subtle p-6">
+            {t('checkout.paypal_unavailable', 'PayPal is not configured.')}
+          </p>
+        ))}
 
       <div className="card-premium space-y-3 p-6">
         <div className="flex items-center gap-2 text-primary">

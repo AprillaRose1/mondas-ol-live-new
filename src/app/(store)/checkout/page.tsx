@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -10,8 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux';
 import { clearCart } from '@/store/slices/cartSlice';
-import { checkoutFormSchema, type CheckoutFormData } from '@/lib/schemas';
-import { submitCheckout, createPaymentIntent, type CheckoutPayload } from '@/lib/api/checkout';
+import { shippingSchema, type ShippingFormData } from '@/lib/schemas';
 import { isStripeEnabled } from '@/lib/stripe';
 import { StripePayment } from '@/components/checkout/stripe-payment';
 import { fadeInUp, staggerContainer, scrollViewport } from '@/lib/animations';
@@ -20,7 +19,7 @@ import { MondasButton } from '@/components/ui/mondas-button';
 import { CheckoutEmpty } from '@/components/checkout/checkout-empty';
 import { CheckoutSteps } from '@/components/checkout/checkout-steps';
 import { ShippingStep } from '@/components/checkout/shipping-step';
-import { PaymentStep } from '@/components/checkout/payment-step';
+import { PaymentStep, type PaymentMethod } from '@/components/checkout/payment-step';
 import { OrderSummary } from '@/components/checkout/order-summary';
 import { CheckoutSuccess } from '@/components/checkout/checkout-success';
 import type { Language } from '@/lib/types';
@@ -34,22 +33,36 @@ const SHIPPING_FIELDS = [
   'city',
   'zip',
   'country',
-] as const satisfies readonly (keyof CheckoutFormData)[];
-
-const PAYMENT_FIELDS = ['paymentMethod', 'cardName', 'cardNumber', 'expiry', 'cvc'] as const satisfies readonly (keyof CheckoutFormData)[];
+] as const satisfies readonly (keyof ShippingFormData)[];
 
 const FREE_SHIPPING_THRESHOLD = 0;
+
+const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? null;
+
+async function postJson<T>(url: string, body: unknown): Promise<T> {
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const data = (await res.json().catch(() => ({}))) as { error?: string };
+    throw new Error(data.error ?? 'Request failed');
+  }
+  return res.json() as Promise<T>;
+}
 
 export default function CheckoutPage() {
   const { t, i18n } = useTranslation();
   const lang = (i18n.language.slice(0, 2) || 'en') as Language;
   const dispatch = useAppDispatch();
-  const { items, appliedCoupon } = useAppSelector((state) => state.cart);
+  const { items } = useAppSelector((state) => state.cart);
 
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAdvancing, setIsAdvancing] = useState(false);
   const [orderId, setOrderId] = useState<string | null>(null);
+  const [method, setMethod] = useState<PaymentMethod>('card');
   const [clientSecret, setClientSecret] = useState<string | null>(null);
 
   const subtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -57,17 +70,18 @@ export default function CheckoutPage() {
 
   const {
     register,
-    handleSubmit,
     trigger,
     getValues,
     formState: { errors },
-  } = useForm<CheckoutFormData>({
-    resolver: zodResolver(checkoutFormSchema),
+  } = useForm<ShippingFormData>({
+    resolver: zodResolver(shippingSchema),
     defaultValues: {
       country: 'Tunisia',
-      paymentMethod: 'card',
     },
   });
+
+  // Order line items for the server (server recomputes prices from local data).
+  const orderItems = () => items.map((item) => ({ productId: item.id, quantity: item.quantity }));
 
   const goToPayment = async () => {
     setIsAdvancing(true);
@@ -81,70 +95,66 @@ export default function CheckoutPage() {
     }
   };
 
-  const placeOrder = async (data: CheckoutFormData) => {
-    setIsSubmitting(true);
+  // Best-effort order email — payment is already captured, so a mail failure
+  // must never block the buyer's confirmation.
+  const sendOrderEmail = async (provider: string, paymentRef: string) => {
+    const v = getValues();
     try {
-      const result = await submitCheckout({
-        ...data,
-        shipping: { firstName: data.firstName, lastName: data.lastName, email: data.email, phone: data.phone, address: data.address, city: data.city, zip: data.zip, country: data.country },
-      items: items.map((item) => ({ productId: item.id, productName: item.name.en || item.name.de, quantity: item.quantity, price: item.price })),
-      subtotal,
-      shippingCost: shipping,
-      couponCode: appliedCoupon?.code,
+      await postJson('/api/orders/email', {
+        items: orderItems(),
+        shipping: {
+          firstName: v.firstName, lastName: v.lastName, email: v.email, phone: v.phone,
+          address: v.address, city: v.city, zip: v.zip, country: v.country,
+        },
+        paymentProvider: provider,
+        paymentRef,
       });
-
-      if (result.clientSecret) {
-        // TODO: Stripe â€” stripe.confirmCardPayment(result.clientSecret, { payment_method: { card: elements } })
-        toast.message(t('checkout.payment_pending'));
-      }
-
-      setOrderId(result.orderId);
-      toast.success(t('checkout.success'));
-      dispatch(clearCart());
-      setStep(3);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch {
-      toast.error(t('checkout.error'));
-    } finally {
-      setIsSubmitting(false);
+    } catch (e) {
+      console.error('order email failed (non-blocking)', e);
     }
   };
 
-  const buildPayload = (data: CheckoutFormData): CheckoutPayload => ({
-    shipping: { firstName: data.firstName, lastName: data.lastName, email: data.email, phone: data.phone, address: data.address, city: data.city, zip: data.zip, country: data.country },
-    items: items.map((item) => ({ productId: item.id, productName: item.name.en || item.name.de, quantity: item.quantity, price: item.price })),
-    subtotal,
-    shippingCost: shipping,
-    couponCode: appliedCoupon?.code,
-  });
-
-  // Stripe Elements path: create a PaymentIntent, then render the card element
-  const initStripePayment = async () => {
-    setIsSubmitting(true);
-    try {
-      const res = await createPaymentIntent(buildPayload(getValues()));
-      if (!res.clientSecret) { toast.error(t('checkout.error')); return; }
-      setOrderId(res.orderId);
-      setClientSecret(res.clientSecret);
-    } catch {
-      toast.error(t('checkout.error'));
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const finalizeStripePayment = () => {
+  const completeOrder = async (provider: string, paymentRef: string) => {
+    await sendOrderEmail(provider, paymentRef);
+    setOrderId(paymentRef);
     toast.success(t('checkout.success'));
     dispatch(clearCart());
     setStep(3);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const onSubmit = handleSubmit(async (data) => {
-    const valid = await trigger([...PAYMENT_FIELDS]);
-    if (!valid) return;
-    await placeOrder(data);
-  });
+  // Stripe: create a PaymentIntent, then mount the card Elements.
+  const initStripe = async () => {
+    setIsSubmitting(true);
+    try {
+      const res = await postJson<{ clientSecret: string }>('/api/checkout/stripe', { items: orderItems() });
+      setClientSecret(res.clientSecret);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : t('checkout.error'));
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const onStripeSuccess = (paymentIntentId: string) => {
+    void completeOrder('stripe', paymentIntentId);
+  };
+
+  // PayPal: create + capture on the server, then finalize.
+  const paypalCreate = async () => {
+    const res = await postJson<{ id: string }>('/api/checkout/paypal/create', { items: orderItems() });
+    return res.id;
+  };
+
+  const paypalApprove = async (paypalOrderId: string) => {
+    try {
+      const res = await postJson<{ id: string; status: string }>('/api/checkout/paypal/capture', { orderId: paypalOrderId });
+      if (res.status === 'COMPLETED') await completeOrder('paypal', res.id);
+      else toast.error(t('checkout.error'));
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : t('checkout.error'));
+    }
+  };
 
   if (items.length === 0 && step !== 3) {
     return (
@@ -180,7 +190,7 @@ export default function CheckoutPage() {
         </motion.div>
 
         <div className="grid gap-12 lg:grid-cols-5 lg:gap-16">
-          <form onSubmit={onSubmit} className="space-y-10 lg:col-span-3">
+          <form onSubmit={(e) => e.preventDefault()} className="space-y-10 lg:col-span-3">
             <AnimatePresence mode="wait">
               {step === 1 && (
                 <motion.div
@@ -201,18 +211,28 @@ export default function CheckoutPage() {
                   exit={{ opacity: 0, x: -24 }}
                   transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                 >
-                  {isStripeEnabled ? (
-                    clientSecret ? (
-                      <StripePayment clientSecret={clientSecret} onSuccess={finalizeStripePayment} />
-                    ) : (
-                      <div className="space-y-4 border border-border-subtle p-6">
-                        <h3 className="text-sm font-bold uppercase tracking-widest">{t('checkout.payment', 'Payment')}</h3>
-                        <p className="text-sm text-text-muted">{t('checkout.stripe_intro', 'Click below to enter your card details securely via Stripe.')}</p>
-                      </div>
-                    )
-                  ) : (
-                    <PaymentStep register={register} errors={errors} />
-                  )}
+                  <PaymentStep
+                    method={method}
+                    onMethodChange={setMethod}
+                    paypalClientId={PAYPAL_CLIENT_ID}
+                    onPaypalCreate={paypalCreate}
+                    onPaypalApprove={paypalApprove}
+                    cardSlot={
+                      isStripeEnabled ? (
+                        clientSecret ? (
+                          <StripePayment clientSecret={clientSecret} onSuccess={onStripeSuccess} />
+                        ) : (
+                          <p className="text-sm text-text-muted">
+                            {t('checkout.stripe_intro', 'Continue to enter your card securely via Stripe.')}
+                          </p>
+                        )
+                      ) : (
+                        <p className="text-sm text-text-muted">
+                          {t('checkout.stripe_unavailable', 'Card payment is not configured.')}
+                        </p>
+                      )
+                    }
+                  />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -240,27 +260,17 @@ export default function CheckoutPage() {
                 >
                   {t('checkout.buttons.next')} <ArrowRight size={18} />
                 </MondasButton>
-              ) : isStripeEnabled ? (
-                // Stripe path: show "continue to payment" until the card element is mounted; then its own Pay button takes over
-                !clientSecret && (
-                  <MondasButton
-                    type="button"
-                    loading={isSubmitting}
-                    onClick={() => void initStripePayment()}
-                    className="gap-2 px-8 py-3 shadow-lg shadow-primary/10"
-                  >
-                    {t('checkout.buttons.continue_payment', 'Continue to payment')} <ArrowRight size={18} />
-                  </MondasButton>
-                )
-              ) : (
+              ) : method === 'card' && isStripeEnabled && !clientSecret ? (
+                // Card path: mount Stripe Elements. Once mounted, its own Pay button takes over.
                 <MondasButton
-                  type="submit"
+                  type="button"
                   loading={isSubmitting}
+                  onClick={() => void initStripe()}
                   className="gap-2 px-8 py-3 shadow-lg shadow-primary/10"
                 >
-                  {t('checkout.buttons.confirm')} <ArrowRight size={18} />
+                  {t('checkout.buttons.continue_payment', 'Continue to payment')} <ArrowRight size={18} />
                 </MondasButton>
-              )}
+              ) : null}
             </div>
           </form>
 
@@ -276,4 +286,3 @@ export default function CheckoutPage() {
     </div>
   );
 }
-

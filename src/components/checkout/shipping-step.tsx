@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { Truck } from 'lucide-react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { FormLabel } from '@/components/ui/typography';
-import type { CheckoutFormData } from '@/lib/schemas';
+import type { ShippingFormData } from '@/lib/schemas';
 
 type ShippingStepProps = {
-  register: UseFormRegister<CheckoutFormData>;
-  errors: FieldErrors<CheckoutFormData>;
+  register: UseFormRegister<ShippingFormData>;
+  errors: FieldErrors<ShippingFormData>;
 };
 
 const inputClass =
