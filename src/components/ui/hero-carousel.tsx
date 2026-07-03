@@ -242,24 +242,10 @@ export function HeroCarousel({
         {slides.map((src, i) => (
           <div
             key={`${src}-${i}`}
-            className="relative h-full shrink-0 overflow-hidden"
+            className="relative h-full shrink-0"
             style={slideWidth > 0 ? { width: slideWidth } : { width: `${100 / slides.length}%` }}
             aria-hidden={looped ? toRealIndex(i, count) !== realIndex : i !== realIndex}
           >
-            {/* Blurred fill so letterbox gaps are never empty */}
-            <Image
-              src={src}
-              alt=""
-              fill
-              quality={30}
-              unoptimized
-              sizes="100vw"
-              aria-hidden
-              className="pointer-events-none select-none scale-110 object-cover object-center blur-2xl"
-              draggable={false}
-            />
-            <div className="pointer-events-none absolute inset-0 bg-black/20" />
-            {/* Full image, uncropped */}
             <Image
               src={src}
               alt={
@@ -278,7 +264,7 @@ export function HeroCarousel({
               quality={100}
               unoptimized
               sizes="100vw"
-              className="pointer-events-none relative select-none object-contain object-center"
+              className="pointer-events-none select-none object-cover object-center"
               draggable={false}
             />
           </div>

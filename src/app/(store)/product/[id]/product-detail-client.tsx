@@ -57,7 +57,7 @@ export function ProductDetailClient({ product: prod, related }: { product: Produ
             <div className="relative aspect-square overflow-hidden bg-bg-card group">
               <AnimatePresence mode="wait">
                 <motion.div key={currentImage} className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                  <AppImage src={prod.images[currentImage]} alt={prod.name[currentLang]} objectFit="contain" sizes="(max-width: 1024px) 100vw, 50vw" priority={currentImage === 0} className="transition-transform duration-700 hover:scale-105" />
+                  <AppImage src={prod.images[currentImage]} alt={prod.name[currentLang]} sizes="(max-width: 1024px) 100vw, 50vw" priority={currentImage === 0} className="transition-transform duration-700 hover:scale-105" />
                 </motion.div>
               </AnimatePresence>
               {prod.images.length > 1 && (
@@ -74,7 +74,7 @@ export function ProductDetailClient({ product: prod, related }: { product: Produ
             <div className="grid grid-cols-4 gap-4">
               {prod.images.map((img, idx) => (
                 <button key={idx} onClick={() => setCurrentImage(idx)} className={cn('aspect-square overflow-hidden border-2 transition-all', currentImage === idx ? 'border-primary' : 'border-border-subtle opacity-50 hover:opacity-100')}>
-                  <AppImage src={img} alt="" objectFit="contain" sizes="80px" />
+                  <AppImage src={img} alt="" sizes="80px" />
                 </button>
               ))}
             </div>
