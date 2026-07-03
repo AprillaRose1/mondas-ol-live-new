@@ -8,10 +8,10 @@ import { getStripe } from '@/lib/stripe';
 
 interface StripePaymentProps {
   clientSecret: string;
-  onSuccess: () => void;
+  onSuccess: (paymentIntentId: string) => void;
 }
 
-function PaymentInner({ onSuccess }: { onSuccess: () => void }) {
+function PaymentInner({ onSuccess }: { onSuccess: (paymentIntentId: string) => void }) {
   const stripe = useStripe();
   const elements = useElements();
   const [submitting, setSubmitting] = useState(false);
@@ -29,7 +29,7 @@ function PaymentInner({ onSuccess }: { onSuccess: () => void }) {
         return;
       }
       if (paymentIntent && (paymentIntent.status === 'succeeded' || paymentIntent.status === 'processing')) {
-        onSuccess();
+        onSuccess(paymentIntent.id);
       }
     } finally {
       setSubmitting(false);

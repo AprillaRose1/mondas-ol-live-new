@@ -26,12 +26,13 @@ export function HomeSplitSection({
       initial="hidden"
       whileInView="visible"
       viewport={scrollViewport}
-      className="relative h-full min-h-[50vh] w-full overflow-hidden lg:min-h-[70vh]"
+      className="group relative h-full min-h-[50vh] w-full overflow-hidden lg:min-h-[70vh]"
     >
       <AppImage
         src={imageSrc}
         alt={imageAlt}
         objectFit="cover"
+        hoverZoom
         sizes="(min-width: 1024px) 50vw, 100vw"
         containerClassName="absolute inset-0 size-full bg-bg-page"
       />

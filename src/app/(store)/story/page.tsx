@@ -57,6 +57,7 @@ function StorySplitSection({
           src={imageSrc}
           alt={imageAlt}
           objectFit="contain"
+          hoverZoom
           sizes={STORY_IMAGE_SIZES}
           containerClassName="absolute inset-0 bg-bg-page"
         />
@@ -141,6 +142,7 @@ const Story = () => {
               src="/story/story6.jpg"
               alt={t('story.terroir.image_alt')}
               objectFit="cover"
+              hoverZoom
               sizes="(max-width: 1152px) 100vw, 1152px"
               containerClassName="absolute inset-0 h-full w-full"
             />

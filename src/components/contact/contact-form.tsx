@@ -10,8 +10,6 @@ import { toast } from 'sonner';
 import { fadeInUp, scrollViewport } from '@/lib/animations';
 import { FormLabel } from '@/components/ui/typography';
 import { MondasButton } from '@/components/ui/mondas-button';
-import { submitContactMessage } from '@/lib/api/contact';
-import { ApiError } from '@/lib/api/http';
 import {
   CONTACT_SUBJECTS,
   contactFormSchema,
@@ -38,12 +36,16 @@ export function ContactForm() {
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
     try {
-      await submitContactMessage(data);
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error('failed');
       toast.success(t('contact.form.success'));
       reset({ name: '', email: '', subject: 'general', message: '' });
-    } catch (err) {
-      const message = err instanceof ApiError ? err.message : t('contact.form.error');
-      toast.error(message);
+    } catch {
+      toast.error(t('contact.form.error'));
     } finally {
       setIsSubmitting(false);
     }

@@ -8,10 +8,9 @@ import { useAppSelector } from '@/lib/hooks/redux';
 
 export const NotificationSimulator = () => {
   const { t } = useTranslation();
-  const { isAuthenticated } = useAppSelector((s) => s.auth);
   const cartCount = useAppSelector((s) => s.cart.items.length);
 
-  // Promo — fires 30s after load for non-authenticated users
+  // Promo — fires 30s after load
   useEffect(() => {
     const t1 = setTimeout(() => {
       toast(t('notifications.promo.title', 'Exclusive Offer'), {
@@ -25,24 +24,23 @@ export const NotificationSimulator = () => {
     return () => clearTimeout(t1);
   }, [t]);
 
-  // Order update — fires 45s after load for authenticated users
+  // Order update — fires 45s after load
   useEffect(() => {
-    if (!isAuthenticated) return;
     const t2 = setTimeout(() => {
       toast(t('notifications.order.title', 'Order Update'), {
         description: t('notifications.order.desc', 'Your recent order has been dispatched.'),
         icon: <ShoppingBag className="text-primary" size={16} />,
         duration: 6000,
-        action: { label: 'Track', onClick: () => { window.location.href = '/profile'; } },
+        action: { label: 'Track', onClick: () => { window.location.href = '/shop'; } },
         className: '!bg-bg-card !text-text-main !border-border-subtle font-sans',
       });
     }, 45_000);
     return () => clearTimeout(t2);
-  }, [isAuthenticated, t]);
+  }, [t]);
 
-  // Cart abandonment — 2 min after load when cart is non-empty and user is auth
+  // Cart abandonment — 2 min after load when cart is non-empty
   useEffect(() => {
-    if (!isAuthenticated || cartCount === 0) return;
+    if (cartCount === 0) return;
     const t3 = setTimeout(() => {
       toast('Items in your cart', {
         description: 'Complete your order before they sell out.',
@@ -53,7 +51,7 @@ export const NotificationSimulator = () => {
       });
     }, 120_000);
     return () => clearTimeout(t3);
-  }, [isAuthenticated, cartCount]);
+  }, [cartCount]);
 
   return null;
 };

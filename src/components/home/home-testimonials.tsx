@@ -1,19 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Star, ChevronLeft, ChevronRight, Quote, MessageSquare } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { TestimonialSkeleton } from '@/components/ui/Skeleton';
-import { useAppSelector } from '@/lib/hooks/redux';
 import { useTestimonials } from '@/lib/hooks/useTestimonials';
 import { fadeInUp, scrollViewport } from '@/lib/animations';
 import { cn } from '@/lib/utils';
 
 export function HomeTestimonials() {
   const { t } = useTranslation();
-  const { isAuthenticated } = useAppSelector((state) => state.auth);
   const { testimonials, loading } = useTestimonials();
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -110,15 +107,6 @@ export function HomeTestimonials() {
               </motion.button>
             </div>
           </>
-        )}
-
-        {isAuthenticated && (
-          <motion.div variants={fadeInUp} className="mt-14 text-center" initial="hidden" whileInView="visible" viewport={scrollViewport}>
-            <Link href="/profile" className="btn-mondas inline-flex items-center gap-2">
-              <MessageSquare size={16} />
-              {t('home.testimonials.add_title')}
-            </Link>
-          </motion.div>
         )}
       </div>
     </section>
