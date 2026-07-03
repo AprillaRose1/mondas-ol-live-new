@@ -31,6 +31,10 @@ export const de = {
       video_cta: "Dougga entdecken",
       image_alt: "Olivenhaine bei antikem Dougga, Tunesien"
     },
+    restaurant: {
+      cta: "Mondas Restaurant besuchen",
+      body: "Unser Olivenöl wird direkt im Restaurant verwendet und ist auch für unsere Gäste erhältlich – frisch, hochwertig und voller mediterranem Geschmack."
+    },
     intro: {
       eyebrow: "Unser EVO-Öl",
       body: "Mondas ÖL entsteht auf den Hügeln von Dougga in Tunesien – einer UNESCO-Landschaft, in der Chemlali-Oliven im frühen Herbst von Hand geerntet und innerhalb weniger Stunden ausschließlich mechanisch kalt gepresst werden. So bleiben Aroma, Polyphenole und Reinheit in ihrer vollen Intensität bewahrt – für ein Öl, das seine Herkunft in jedem Tropfen spürbar macht."

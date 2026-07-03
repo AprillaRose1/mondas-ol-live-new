@@ -31,6 +31,10 @@ export const en = {
       video_cta: "Discover Dougga",
       image_alt: "Olive groves near ancient Dougga, Tunisia"
     },
+    restaurant: {
+      cta: "Visit Mondas Restaurant",
+      body: "Our olive oil is used directly in the restaurant and is also available to our guests — fresh, high-quality and full of Mediterranean flavour."
+    },
     intro: {
       eyebrow: "Our EVO oil",
       body: "Mondas ÖL is born on the hills of Dougga, Tunisia — a UNESCO heritage landscape where Chemlali olives are hand-picked in early autumn and cold-pressed within hours, using only mechanical methods that preserve aroma, polyphenols, and purity in every bottle."

@@ -6,11 +6,12 @@ import { motion } from 'framer-motion';
 import { MapPin, ExternalLink } from 'lucide-react';
 import { fadeInUp, scrollViewport } from '@/lib/animations';
 
-/** Dougga, Béja — approximate grove / heritage site */
-const MAP_LAT = 36.4225;
-const MAP_LNG = 9.221;
-const OSM_EMBED = `https://www.openstreetmap.org/export/embed.html?bbox=${MAP_LNG - 0.04}%2C${MAP_LAT - 0.03}%2C${MAP_LNG + 0.04}%2C${MAP_LAT + 0.03}&layer=mapnik&marker=${MAP_LAT}%2C${MAP_LNG}`;
-const MAPS_DIRECTIONS = `https://www.google.com/maps/search/?api=1&query=${MAP_LAT},${MAP_LNG}`;
+/** Königswinter storefront. Keyless Google Maps embed geocodes the address —
+ * no API key required. */
+const MAP_ADDRESS = 'Hauptstraße 332, 53639 Königswinter';
+const MAP_QUERY = encodeURIComponent(MAP_ADDRESS);
+const MAPS_EMBED = `https://www.google.com/maps?q=${MAP_QUERY}&z=16&output=embed`;
+const MAPS_DIRECTIONS = `https://www.google.com/maps/search/?api=1&query=${MAP_QUERY}`;
 
 export function ContactMapCard() {
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ export function ContactMapCard() {
       <div className="relative aspect-[4/3] w-full bg-bg-matte">
         <iframe
           title={t('contact.map_title')}
-          src={OSM_EMBED}
+          src={MAPS_EMBED}
           className="absolute inset-0 h-full w-full border-0 grayscale-[0.2] contrast-[1.05]"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"

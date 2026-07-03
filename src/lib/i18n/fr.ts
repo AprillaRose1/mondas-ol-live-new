@@ -31,6 +31,10 @@ export const fr = {
       video_cta: "Découvrir Dougga",
       image_alt: "Oliveraies près de Dougga antique, Tunisie"
     },
+    restaurant: {
+      cta: "Visiter le restaurant Mondas",
+      body: "Notre huile d'olive est utilisée directement au restaurant et est aussi disponible pour nos clients — fraîche, de haute qualité et pleine de saveurs méditerranéennes."
+    },
     intro: {
       eyebrow: "Notre huile EVO",
       body: "Mondas ÖL naît sur les collines de Dougga, Tunisie — paysage UNESCO où les olives Chemlali sont cueillies à la main au début de l'automne et pressées à froid en quelques heures, par des procédés mécaniques qui préservent arôme, polyphénols et pureté."
