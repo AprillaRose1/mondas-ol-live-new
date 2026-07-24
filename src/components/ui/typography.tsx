@@ -45,14 +45,15 @@ export function PageHeader({
 type AccentTitleProps = {
   i18nKey: string;
   className?: string;
+  accentClassName?: string;
   as?: 'h1' | 'h2' | 'h3';
 };
 
 /** Display heading with <accent> span from i18n */
-export function AccentTitle({ i18nKey, className, as: Tag = 'h1' }: AccentTitleProps) {
+export function AccentTitle({ i18nKey, className, accentClassName, as: Tag = 'h1' }: AccentTitleProps) {
   return (
     <Tag className={cn(Tag === 'h1' ? 'display-title' : 'section-title', className)}>
-      <Trans i18nKey={i18nKey} components={{ accent: <span className="text-accent" /> }} />
+      <Trans i18nKey={i18nKey} components={{ accent: <span className={cn('text-accent', accentClassName)} /> }} />
     </Tag>
   );
 }
