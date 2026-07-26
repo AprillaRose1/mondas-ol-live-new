@@ -31,6 +31,13 @@ export const en = {
       video_cta: "Discover Dougga",
       image_alt: "Olive groves near ancient Dougga, Tunisia"
     },
+    gallery: {
+      eyebrow: "Gallery",
+      title: "Light, earth and olives from Dougga",
+      subtitle: "Fresh views from our groves, prepared brighter and cleaner in one consistent Mondas look for the website.",
+      cta: "View all images",
+      image_alt: "Dougga gallery image {{number}}"
+    },
     restaurant: {
       cta: "Visit Mondas Restaurant",
       body: "Our olive oil is used directly in the restaurant and is also available to our guests — fresh, high-quality and full of Mediterranean flavour."

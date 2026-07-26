@@ -31,6 +31,13 @@ export const de = {
       video_cta: "Dougga entdecken",
       image_alt: "Olivenhaine bei antikem Dougga, Tunesien"
     },
+    gallery: {
+      eyebrow: "Galerie",
+      title: "Licht, Erde und Oliven aus Dougga",
+      subtitle: "Neue Eindrücke aus unseren Hainen: heller, lebendiger und in einem einheitlichen Mondas-Look für die Website vorbereitet.",
+      cta: "Alle Bilder ansehen",
+      image_alt: "Dougga Galerie Bild {{number}}"
+    },
     restaurant: {
       cta: "Mondas Restaurant besuchen",
       body: "Unser Olivenöl wird direkt im Restaurant verwendet und ist auch für unsere Gäste erhältlich – frisch, hochwertig und voller mediterranem Geschmack."

@@ -31,6 +31,13 @@ export const fr = {
       video_cta: "Découvrir Dougga",
       image_alt: "Oliveraies près de Dougga antique, Tunisie"
     },
+    gallery: {
+      eyebrow: "Galerie",
+      title: "Lumière, terre et olives de Dougga",
+      subtitle: "Nouvelles vues de nos oliveraies, préparées plus lumineuses et harmonisées dans un style Mondas cohérent pour le site.",
+      cta: "Voir toutes les images",
+      image_alt: "Image de galerie Dougga {{number}}"
+    },
     restaurant: {
       cta: "Visiter le restaurant Mondas",
       body: "Notre huile d'olive est utilisée directement au restaurant et est aussi disponible pour nos clients — fraîche, de haute qualité et pleine de saveurs méditerranéennes."
