@@ -75,11 +75,11 @@ export const Header = () => {
     { to: '/', label: t('nav.home') },
     { to: '/shop', label: t('nav.shop') },
     { to: '/story', label: t('nav.story') },
+    { to: '/gallery', label: t('nav.gallery', 'Gallery') },
     { to: '/contact', label: t('nav.contact') },
   ];
 
   const moreLinks = [
-    { to: '/gallery', label: t('nav.gallery', 'Gallery') },
     { to: '/recipes', label: t('nav.recipes') },
     { to: '/faq', label: t('nav.faq') },
   ];
@@ -391,4 +391,3 @@ export const Header = () => {
     </>
   );
 };
-

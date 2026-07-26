@@ -1,7 +1,6 @@
 export { HomeHero } from './home-hero';
 export { HomeRestaurant } from './home-restaurant';
 export { HomeIntro } from './home-intro';
-export { HomeGallery } from './home-gallery';
 export { HomeTraditionSplit } from './home-tradition-split';
 export { HomeAncientTree } from './home-ancient-tree';
 export { HomeValues } from './home-values';
