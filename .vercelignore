@@ -1,0 +1,13 @@
+mondas-front/
+outputs/
+share/
+node_modules/
+.next/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+.claude/
+.cursor/
