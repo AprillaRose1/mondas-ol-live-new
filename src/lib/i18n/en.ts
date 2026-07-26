@@ -64,21 +64,21 @@ export const en = {
     values: {
       eyebrow: "A journey in flavour",
       items: {
-        authentic: {
-          title: "Authentic",
-          subtitle: "Dougga terroir"
+        climate: {
+          title: "Climate and soil",
+          body: "The dry Mediterranean climate and limestone-rich soils create an intense flavor and a high content of natural antioxidants."
         },
-        emotional: {
-          title: "Emotional",
-          subtitle: "Heritage in every drop"
+        variety: {
+          title: "Chetoui olive variety",
+          body: "This variety is often grown in the region. It produces olive oil with a strong flavor, a light bitterness, and a high polyphenol content."
         },
-        unforgettable: {
-          title: "Unforgettable",
-          subtitle: "Moments at the table"
+        origin: {
+          title: "Protected origin",
+          body: "Regional olive oil carries a protected designation of origin (AOC), confirming its origin and adherence to high quality standards."
         },
-        terroir: {
-          title: "Terroir",
-          subtitle: "Chemlali olives"
+        cold_press: {
+          title: "Cold pressing",
+          body: "High-quality producers process the olives shortly after harvest, preserving aroma and valuable nutrients."
         }
       }
     },

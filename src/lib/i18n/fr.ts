@@ -64,21 +64,21 @@ export const fr = {
     values: {
       eyebrow: "Un voyage de saveurs",
       items: {
-        authentic: {
-          title: "Authentique",
-          subtitle: "Terroir de Dougga"
+        climate: {
+          title: "Climat et sol",
+          body: "Le climat méditerranéen sec et les sols calcaires créent un goût intense et une forte teneur en antioxydants naturels."
         },
-        emotional: {
-          title: "Émouvant",
-          subtitle: "Héritage en chaque goutte"
+        variety: {
+          title: "Variété Chetoui",
+          body: "Cette variété est souvent cultivée dans la région. Elle donne une huile au goût puissant, légèrement amer, avec une teneur élevée en polyphénols."
         },
-        unforgettable: {
-          title: "Inoubliable",
-          subtitle: "Moments à table"
+        origin: {
+          title: "Origine protégée",
+          body: "L’huile d’olive régionale porte une appellation d’origine protégée (AOC), confirmant son origine et le respect de standards de qualité élevés."
         },
-        terroir: {
-          title: "Terroir",
-          subtitle: "Olives Chemlali"
+        cold_press: {
+          title: "Pression à froid",
+          body: "Les producteurs de qualité transforment les olives peu après la récolte, afin de préserver les arômes et les précieux nutriments."
         }
       }
     },

@@ -64,21 +64,21 @@ export const de = {
     values: {
       eyebrow: "Eine Reise der Aromen",
       items: {
-        authentic: {
-          title: "Authentisch",
-          subtitle: "Terroir Dougga"
+        climate: {
+          title: "Klima und Boden",
+          body: "Das trockene Mittelmeerklima und die kalkhaltigen Böden sorgen für einen intensiven Geschmack und einen hohen Gehalt an natürlichen Antioxidantien."
         },
-        emotional: {
-          title: "Emotional",
-          subtitle: "Erbe in jedem Tropfen"
+        variety: {
+          title: "Olivensorte Chetoui",
+          body: "In dieser Region wird diese Sorte häufig angebaut. Sie ergibt ein Olivenöl mit kräftigem Geschmack, einer leichten Bitternote und einem hohen Polyphenolgehalt."
         },
-        unforgettable: {
-          title: "Unvergesslich",
-          subtitle: "Momente am Tisch"
+        origin: {
+          title: "Geschützte Herkunft",
+          body: "Das regionale Olivenöl trägt eine geschützte Ursprungsbezeichnung (AOC), die seine Herkunft und die Einhaltung hoher Qualitätsstandards bestätigt."
         },
-        terroir: {
-          title: "Terroir",
-          subtitle: "Chemlali-Oliven"
+        cold_press: {
+          title: "Kaltpressung",
+          body: "Hochwertige Hersteller verarbeiten die Oliven kurz nach der Ernte, sodass Aroma und wertvolle Inhaltsstoffe erhalten bleiben."
         }
       }
     },
