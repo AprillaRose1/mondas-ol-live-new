@@ -25,7 +25,7 @@ export const de = {
   },
   home: {
     hero: {
-      eyebrow: "Mondas ÖL · Natives Olivenöl extra",
+      eyebrow: "Natives Bio-Olivenöl extra",
       title: "Essenz der <accent>Natur</accent> in jedem Tropfen",
       tagline: "Ein Tropfen, der Ihren Tisch bereichert",
       video_cta: "Dougga entdecken",
@@ -460,7 +460,7 @@ export const de = {
     shipping: "Versandinfo",
     privacy: "Datenschutz",
     rights: "Mondas ÖL. Alle Rechte vorbehalten.",
-    designed_by: "Mit Sorgfalt in Tunesien hergestellt",
+    designed_by: "Mit Sorgfalt aus Tunesien",
     newsletter: {
       title: "Neugkeiten erhalten",
       subtitle: "Erhalten Sie exklusive Angebote und Rezepte.",

@@ -9,6 +9,7 @@
   --brand-primary: #b8944f;
   --brand-primary-muted: #8a7340;
   --brand-foreground: #0a0a0a;
+  --hero-gold: #b8944f;
 
   --bg-page: #050505;
   --bg-card: #0a0a0a;
@@ -158,6 +159,10 @@ html {
 
   .text-accent {
     @apply italic text-primary;
+  }
+
+  .hero-gold-accent {
+    color: var(--hero-gold) !important;
   }
 
   .page-header {

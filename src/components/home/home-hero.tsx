@@ -26,7 +26,7 @@ export function HomeHero() {
             {t('home.hero.eyebrow')}
           </motion.p>
           <motion.div variants={fadeInUp}>
-            <AccentTitle i18nKey="home.hero.title" className="mb-5" />
+            <AccentTitle i18nKey="home.hero.title" className="mb-5" accentClassName="hero-gold-accent" />
           </motion.div>
           <motion.p variants={fadeInUp} className="body-lg mb-8 max-w-lg text-text-secondary">
             {t('home.hero.tagline')}
