@@ -14,7 +14,7 @@ export function HomeRestaurant() {
   const { t } = useTranslation();
 
   return (
-    <section className="section-y-lg border-y border-border-subtle bg-bg-matte">
+    <section className="section-y-lg border-y border-border-subtle bg-bg-page">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -24,7 +24,7 @@ export function HomeRestaurant() {
       >
         <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <motion.div variants={fadeInUp} className="flex justify-center lg:justify-start">
-            <div className="relative aspect-[9/16] w-full max-w-[320px] bg-bg-elevated">
+            <div className="relative aspect-[9/16] w-full max-w-[320px] bg-bg-page">
               <AppImage
                 src="/brand/mondas-restaurant-card.jpeg"
                 alt={t('home.restaurant.logo_alt')}
