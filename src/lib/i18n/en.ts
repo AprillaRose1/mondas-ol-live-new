@@ -40,11 +40,18 @@ export const en = {
     },
     restaurant: {
       cta: "Visit Mondas Restaurant",
-      body: "Our olive oil is used directly in the restaurant and is also available to our guests — fresh, high-quality and full of Mediterranean flavour."
+      eyebrow: "Mondas Restaurant",
+      title: "From grove straight to the table",
+      logo_alt: "Mondas Restaurant Bar Vinothek logo",
+      body: "At Mondas Restaurant, our olive oil is served where it belongs: at the table. Mediterranean cooking, wine and Mondas ÖL meet in one place.",
+      primary_cta: "Reserve a table",
+      secondary_cta: "View restaurant"
     },
     intro: {
       eyebrow: "Our EVO oil",
-      body: "Mondas ÖL is born on the hills of Dougga, Tunisia — a UNESCO heritage landscape where Chemlali olives are hand-picked in early autumn and cold-pressed within hours, using only mechanical methods that preserve aroma, polyphenols, and purity in every bottle."
+      body: "Premium organic olive oil from Dougga, Tunisia. Hand-picked, cold-pressed and crafted in small batches so aroma, polyphenols and origin stay vivid.",
+      primary_cta: "Discover Mondas ÖL",
+      secondary_cta: "Our story"
     },
     tradition: {
       eyebrow: "Precious as gold",
@@ -62,7 +69,7 @@ export const en = {
       cta: "Discover our story"
     },
     values: {
-      eyebrow: "A journey in flavour",
+      eyebrow: "Why Mondas ÖL stands apart",
       items: {
         climate: {
           title: "Climate and soil",
@@ -86,7 +93,7 @@ export const en = {
       eyebrow: "Our mission",
       title: "Spreading olive culture from Dougga",
       image_alt: "Sunset over Mondas ÖL olive groves",
-      body: "Mondas ÖL shares a true culture of olive oil — the care with which we tend our trees beside ancient Thugga. We cultivate sustainably, with natural practices respectful of the land. Limited production guarantees authenticity; only olives from our own groves fill each bottle."
+      body: "Our olives grow near ancient Thugga. We work slowly, naturally and in limited production, so every bottle carries the character of Dougga."
     },
     process: {
       eyebrow: "How we craft uniqueness",

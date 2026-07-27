@@ -21,15 +21,15 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden bg-bg-page text-text-main">
       <HomeHero />
-      <HomeRestaurant />
       <HomeIntro />
+      <HomeValues />
+      <HomeProducts />
       <HomeTraditionSplit />
       <HomeAncientTree />
-      <HomeValues />
       <HomeMission />
+      <HomeRestaurant />
       <HomeProcess />
       <HomeExperiences />
-      <HomeProducts />
       <HomeTestimonials />
       <HomeStats />
       <HomeSocial />

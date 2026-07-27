@@ -40,11 +40,18 @@ export const fr = {
     },
     restaurant: {
       cta: "Visiter le restaurant Mondas",
-      body: "Notre huile d'olive est utilisée directement au restaurant et est aussi disponible pour nos clients — fraîche, de haute qualité et pleine de saveurs méditerranéennes."
+      eyebrow: "Mondas Restaurant",
+      title: "De l’oliveraie directement à table",
+      logo_alt: "Logo Mondas Restaurant Bar Vinothek",
+      body: "Au restaurant Mondas, notre huile d’olive est servie là où elle révèle toute sa force : à table. Cuisine méditerranéenne, vin et Mondas ÖL s’y rencontrent.",
+      primary_cta: "Réserver une table",
+      secondary_cta: "Voir le restaurant"
     },
     intro: {
       eyebrow: "Notre huile EVO",
-      body: "Mondas ÖL naît sur les collines de Dougga, Tunisie — paysage UNESCO où les olives Chemlali sont cueillies à la main au début de l'automne et pressées à froid en quelques heures, par des procédés mécaniques qui préservent arôme, polyphénols et pureté."
+      body: "Huile d’olive bio premium de Dougga, Tunisie. Cueillie à la main, pressée à froid et produite en petites séries pour préserver arôme, polyphénols et origine.",
+      primary_cta: "Découvrir Mondas ÖL",
+      secondary_cta: "Notre histoire"
     },
     tradition: {
       eyebrow: "Précieux comme l'or",
@@ -62,7 +69,7 @@ export const fr = {
       cta: "Découvrir notre histoire"
     },
     values: {
-      eyebrow: "Un voyage de saveurs",
+      eyebrow: "Pourquoi Mondas ÖL est différent",
       items: {
         climate: {
           title: "Climat et sol",
@@ -86,7 +93,7 @@ export const fr = {
       eyebrow: "Notre mission",
       title: "La culture de l'huile depuis Dougga",
       image_alt: "Coucher de soleil sur les oliveraies Mondas ÖL",
-      body: "Mondas ÖL partage une vraie culture de l'huile d'olive — l'amour avec lequel nous entretenons nos arbres près de l'antique Thugga. Culture durable, production limitée, olives uniquement de nos domaines."
+      body: "Nos olives poussent près de l’antique Thugga. Nous travaillons lentement, naturellement et en production limitée, pour que chaque bouteille porte le caractère de Dougga."
     },
     process: {
       eyebrow: "Comment nous créons l'unique",

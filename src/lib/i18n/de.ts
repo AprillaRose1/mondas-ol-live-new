@@ -40,11 +40,18 @@ export const de = {
     },
     restaurant: {
       cta: "Mondas Restaurant besuchen",
-      body: "Unser Olivenöl wird direkt im Restaurant verwendet und ist auch für unsere Gäste erhältlich – frisch, hochwertig und voller mediterranem Geschmack."
+      eyebrow: "Mondas Restaurant",
+      title: "Vom Hain direkt auf den Tisch",
+      logo_alt: "Mondas Restaurant Bar Vinothek Logo",
+      body: "Im Mondas Restaurant wird unser Olivenöl dort serviert, wo es am stärksten wirkt: am Tisch. Mediterrane Küche, Wein und Mondas ÖL gehören hier zusammen.",
+      primary_cta: "Tisch reservieren",
+      secondary_cta: "Restaurant ansehen"
     },
     intro: {
       eyebrow: "Unser EVO-Öl",
-      body: "Mondas ÖL entsteht auf den Hügeln von Dougga in Tunesien – einer UNESCO-Landschaft, in der Chemlali-Oliven im frühen Herbst von Hand geerntet und innerhalb weniger Stunden ausschließlich mechanisch kalt gepresst werden. So bleiben Aroma, Polyphenole und Reinheit in ihrer vollen Intensität bewahrt – für ein Öl, das seine Herkunft in jedem Tropfen spürbar macht."
+      body: "Premium Bio-Olivenöl aus Dougga, Tunesien. Handgeerntet, kalt gepresst und in kleinen Chargen hergestellt, damit Aroma, Polyphenole und Herkunft spürbar bleiben.",
+      primary_cta: "Mondas ÖL entdecken",
+      secondary_cta: "Unsere Geschichte"
     },
     tradition: {
       eyebrow: "Kostbar wie Gold",
@@ -62,7 +69,7 @@ export const de = {
       cta: "Unsere Geschichte entdecken"
     },
     values: {
-      eyebrow: "Eine Reise der Aromen",
+      eyebrow: "Warum Mondas ÖL besonders ist",
       items: {
         climate: {
           title: "Klima und Boden",
@@ -86,7 +93,7 @@ export const de = {
       eyebrow: "Unsere Mission",
       title: "Olivenkultur aus Dougga teilen",
       image_alt: "Sonnenuntergang über den Mondas-OL-Hainen",
-      body: "Mondas ÖL vermittelt eine authentische Olivenölkultur – geprägt von der Sorgfalt, mit der wir unsere Bäume in der Nähe des antiken Thugga pflegen. In jeder Phase unseres Schaffens verbinden wir Natur, Tradition und Handwerk zu einem unverfälschten Ausdruck unseres Terroirs. Nachhaltig und naturbelassen entsteht unser Öl in limitierter Produktion ausschließlich aus unseren eigenen Hainen – ein Erbe, das man nicht nur schmeckt, sondern erlebt."
+      body: "Unsere Oliven wachsen nahe dem antiken Thugga. Wir arbeiten langsam, naturbelassen und in limitierter Produktion, damit jede Flasche den Charakter von Dougga trägt."
     },
     process: {
       eyebrow: "So entsteht Einzigartigkeit",
