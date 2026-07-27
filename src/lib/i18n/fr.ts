@@ -480,6 +480,8 @@ export const fr = {
     badge: "Impressions",
     subtitle: "Un voyage visuel à travers nos oliveraies de Dougga et le savoir-faire de Mondas ÖL.",
     empty: "Aucune image dans cette catégorie pour le moment.",
+    load_more: "Voir plus",
+    loading_more: "Chargement…",
     categories: {
       all: "Tous",
       nature: "Nature",

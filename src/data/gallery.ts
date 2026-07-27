@@ -13,6 +13,18 @@ const douggaTitle = (de: string, en: string, fr: string) => ({ de, en, fr });
 
 export const MOCK_GALLERY: GalleryImage[] = [
   {
+    id: 'dougga-3953',
+    url: '/gallery/dougga/IMG_3953.jpg',
+    title: douggaTitle('Olivenbaum, etwa 1000 Jahre alt', 'Olive tree, around 1000 years old', 'Olivier, environ 1000 ans'),
+    category: 'tradition',
+  },
+  {
+    id: 'dougga-3986',
+    url: '/gallery/dougga/IMG_3986.jpg',
+    title: douggaTitle('Zwischen den Bäumen', 'Among the trees', 'Entre les arbres'),
+    category: 'nature',
+  },
+  {
     id: 'dougga-3903',
     url: '/gallery/dougga/IMG_3903.jpg',
     title: douggaTitle('Weite Olivenhaine', 'Wide olive groves', 'Oliveraies ouvertes'),
@@ -25,12 +37,6 @@ export const MOCK_GALLERY: GalleryImage[] = [
     category: 'tradition',
   },
   {
-    id: 'dougga-3986',
-    url: '/gallery/dougga/IMG_3986.jpg',
-    title: douggaTitle('Zwischen den Bäumen', 'Among the trees', 'Entre les arbres'),
-    category: 'nature',
-  },
-  {
     id: 'dougga-3920',
     url: '/gallery/dougga/IMG_3920.jpg',
     title: douggaTitle('Hügel von Dougga', 'Hills of Dougga', 'Collines de Dougga'),
@@ -39,7 +45,7 @@ export const MOCK_GALLERY: GalleryImage[] = [
   {
     id: 'dougga-4055',
     url: '/gallery/dougga/IMG_4055.jpg',
-    title: douggaTitle('Alte Olivenbäume', 'Ancient olive trees', 'Oliviers anciens'),
+    title: douggaTitle('Olivenbäume aus alter Zeit', 'Olive trees from ancient times', 'Oliviers d’autrefois'),
     category: 'nature',
   },
   {
@@ -124,12 +130,6 @@ export const MOCK_GALLERY: GalleryImage[] = [
     id: 'dougga-3946',
     url: '/gallery/dougga/IMG_3946.jpg',
     title: douggaTitle('Ruinen und Oliven', 'Ruins and olives', 'Ruines et oliviers'),
-    category: 'tradition',
-  },
-  {
-    id: 'dougga-3953',
-    url: '/gallery/dougga/IMG_3953.jpg',
-    title: douggaTitle('Historische Hügel', 'Historic hills', 'Collines historiques'),
     category: 'tradition',
   },
   {

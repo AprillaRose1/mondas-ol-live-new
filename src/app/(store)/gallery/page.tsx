@@ -87,9 +87,9 @@ const Gallery = () => {
                   className="flex items-center gap-2 border border-border-subtle px-8 py-3 text-[11px] font-bold uppercase tracking-widest hover:border-primary hover:text-primary transition-all disabled:opacity-50"
                 >
                   {loadingMore ? (
-                    <><Loader2 size={14} className="animate-spin" /> Loading…</>
+                    <><Loader2 size={14} className="animate-spin" /> {t('gallery.loading_more', 'Lädt…')}</>
                   ) : (
-                    'Load More'
+                    t('gallery.load_more', 'Mehr zeigen')
                   )}
                 </button>
               </motion.div>

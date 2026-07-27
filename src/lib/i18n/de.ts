@@ -485,6 +485,8 @@ export const de = {
     badge: "Impressionen",
     subtitle: "Eine visuelle Reise durch unsere Haine in Dougga und das Handwerk von Mondas ÖL.",
     empty: "Noch keine Bilder in dieser Kategorie.",
+    load_more: "Mehr zeigen",
+    loading_more: "Lädt…",
     categories: {
       all: "Alle",
       nature: "Natur",

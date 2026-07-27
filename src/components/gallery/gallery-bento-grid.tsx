@@ -9,16 +9,16 @@ import type { Language } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
 /**
- * Desktop (lg): 6-tile mosaic — 7+5 / 7+5 / 4+4+4, flush (gap-0, no inner borders).
- * Mobile: 2-column stack.
+ * Repeating 6-tile mosaic. Keep placement automatic so additional pages append
+ * below instead of overlapping the first six tiles.
  */
 const DESKTOP_LAYOUT = [
-  'lg:col-span-7 lg:row-span-2 lg:row-start-1 lg:col-start-1 lg:min-h-[400px]',
-  'lg:col-span-5 lg:row-start-1 lg:col-start-8 lg:h-[200px]',
-  'lg:col-span-5 lg:row-start-2 lg:col-start-8 lg:h-[200px]',
-  'lg:col-span-4 lg:row-start-3 lg:col-start-1 lg:h-[200px]',
-  'lg:col-span-4 lg:row-start-3 lg:col-start-5 lg:h-[200px]',
-  'lg:col-span-4 lg:row-start-3 lg:col-start-9 lg:h-[200px]',
+  'lg:col-span-7 lg:row-span-2 lg:min-h-[400px]',
+  'lg:col-span-5 lg:h-[200px]',
+  'lg:col-span-5 lg:h-[200px]',
+  'lg:col-span-4 lg:h-[200px]',
+  'lg:col-span-4 lg:h-[200px]',
+  'lg:col-span-4 lg:h-[200px]',
 ] as const;
 
 const MOBILE_LAYOUT = [
@@ -40,7 +40,7 @@ export function GalleryBentoGrid({ images, lang, onSelect }: GalleryBentoGridPro
   return (
     <motion.div
       variants={staggerContainer}
-      className="grid grid-cols-12 gap-0 overflow-visible rounded-sm border border-border-subtle lg:grid-rows-[200px_200px_200px]"
+      className="grid grid-cols-12 gap-0 overflow-visible rounded-sm border border-border-subtle lg:auto-rows-[200px]"
      initial="hidden" whileInView="visible" viewport={scrollViewport}>
       {images.map((image, index) => {
         const layoutIndex = index % 6;

@@ -485,6 +485,8 @@ export const en = {
     badge: "Impressions",
     subtitle: "A visual journey through our Dougga groves and the craft of Mondas ÖL.",
     empty: "No images in this category yet.",
+    load_more: "Load more",
+    loading_more: "Loading…",
     categories: {
       all: "All",
       nature: "Nature",
