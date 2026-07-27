@@ -24,7 +24,7 @@ export function HomeRestaurant() {
       >
         <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <motion.div variants={fadeInUp} className="flex justify-center lg:justify-start">
-            <div className="relative aspect-[9/16] w-full max-w-[320px] bg-black">
+            <div className="relative aspect-[9/16] w-full max-w-[320px] bg-bg-elevated">
               <AppImage
                 src="/brand/mondas-restaurant-card.jpeg"
                 alt={t('home.restaurant.logo_alt')}
